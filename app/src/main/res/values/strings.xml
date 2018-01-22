@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CoreMVP</string>
+
+    <!-- Default -->
+    <string name="turn_on_gps">Please Turn On GPS</string>
+    <string name="some_error">Some Error Occurred!</string>
+
+</resources>
