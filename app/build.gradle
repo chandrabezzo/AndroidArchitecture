@@ -102,12 +102,14 @@ dependencies {
     kaptTest "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
 
     // UI
-    implementation "com.toptoche.searchablespinner:searchablespinnerlibrary:$rootProject.ext.searchableSpinnerVersion"
-    implementation "com.prolificinteractive:material-calendarview:$rootProject.ext.materialCalendarViewVersion"
+    implementation "com.jakewharton:butterknife:$rootProject.ext.butterKnifeVersion"
+    kapt "com.jakewharton:butterknife-compiler:$rootProject.ext.butterKnifeVersion"
+
 
     //  Map
-    compile "com.google.android.gms:play-services-maps:$rootProject.ext.playServicesMaps"
-    compile "com.google.android.gms:play-services-location:$rootProject.ext.playServicesLocation"
+    compile "com.google.android.gms:play-services-maps:$rootProject.ext.playServiceVersion"
+    compile "com.google.android.gms:play-services-location:$rootProject.ext.playServiceVersion"
+    implementation "com.google.android.gms:play-services-places:$rootProject.ext.playServiceVersion"
     compile "com.google.maps.android:android-maps-utils:$rootProject.ext.mapsUtils"
 
     // # UI Testing

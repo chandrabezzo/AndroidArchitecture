@@ -11,28 +11,28 @@ import android.support.v7.widget.AppCompatTextView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import butterknife.ButterKnife
+import butterknife.Unbinder
 import com.chandraabdulfattah.coremvp.R
 import com.chandraabdulfattah.coremvp.di.component.ActivityComponent
 import kotlinx.android.synthetic.main.default_toolbar.*
 
 /**
  * Created by bezzo on 21/12/17.
+ * Uncomment code below Butter Knife if you use ButterKnife
  */
 
 open class BaseFragment : Fragment(), BaseFragmentView {
 
     var baseActivity: BaseActivity? = null
-        private set
-    //    private Unbinder mUnbinder;
-    private var mProgressDialog: ProgressDialog? = null
-    protected var dataReceived: Bundle? = null
-    private var rootView: View? = null
-    private var mContext: Context? = null
+    var mProgressDialog: ProgressDialog? = null
+    lateinit var dataReceived: Bundle
+    private lateinit var rootView: View
+    lateinit var mContext: Context
+    lateinit var mUnbinder: Unbinder
 
     val activityComponent: ActivityComponent?
-        get() = if (baseActivity != null) {
-            baseActivity!!.activityComponent
-        } else null
+        get() = baseActivity?.activityComponent
 
     protected open fun onViewInitialized(savedInstanceState: Bundle?) {
 
@@ -48,9 +48,10 @@ open class BaseFragment : Fragment(), BaseFragmentView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(setLayout(), container, false)
-        //        setUnBinder(ButterKnife.bind(this, rootView));
-        dataReceived = arguments
-        mContext = activity
+        // Butter Knife
+//        setButterKnifeUnbinder(ButterKnife.bind(this, rootView))
+        dataReceived = arguments!!
+        mContext = activity!!
 
         if ((activity as BaseActivity).toolbar != null){
             (activity as BaseActivity).toolbar.setNavigationOnClickListener(View.OnClickListener { view: View? ->
@@ -188,6 +189,16 @@ open class BaseFragment : Fragment(), BaseFragmentView {
 
     fun setActionBarTitle(title: String) {
         (activity as BaseActivity).setActionBarTitle(title)
+    }
+
+    // Butter Knife
+//    fun setButterKnifeUnbinder(unbinder: Unbinder){
+//        mUnbinder = unbinder
+//    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mUnbinder.unbind()
     }
 
     interface Callback {

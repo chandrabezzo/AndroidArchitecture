@@ -10,23 +10,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Toast
+import butterknife.ButterKnife
+import butterknife.Unbinder
 import com.chandraabdulfattah.coremvp.di.component.ActivityComponent
 
 /**
  * Created by bezzo on 21/12/17.
+ * Uncomment code below Butter Knife if you use ButterKnife
  */
 open class BaseDialogFragment : DialogFragment(), BaseDialogFragmentView {
 
     var baseActivity: BaseActivity? = null
-        private set
-    //    private Unbinder mUnBinder;
-    var dataReceived: Bundle? = null
-    private var rootView: View? = null
+    lateinit var dataReceived: Bundle
+    private lateinit var rootView: View
+//    var mUnbinder : Unbinder = null
 
-    val activityComponent: ActivityComponent?
-        get() = if (baseActivity != null) {
-            baseActivity!!.activityComponent
-        } else null
+    val activityComponent: ActivityComponent
+        get() = baseActivity?.activityComponent!!
 
     protected open fun onViewInitialized(savedInstanceState: Bundle?) {
 
@@ -34,11 +34,17 @@ open class BaseDialogFragment : DialogFragment(), BaseDialogFragmentView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(setLayout(), container, false)
-        //        setUnbinder(ButterKnife.bind(this, rootView));
-        dataReceived = arguments
+        // Butter Knife
+//        setButterknifeUnbinder(ButterKnife.bind(this, rootView!!))
+        dataReceived = arguments!!
         onViewInitialized(savedInstanceState)
         return rootView
     }
+
+    // Butter Knife
+//    fun setButterknifeUnbinder(unbinder: Unbinder){
+//        mUnbinder = unbinder
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (arguments != null) {
@@ -165,10 +171,6 @@ open class BaseDialogFragment : DialogFragment(), BaseDialogFragmentView {
     override fun dismissProgressDialog() {
         (activity as BaseActivity).dismissProgressDialog()
     }
-
-    //    public void setUnbinder(Unbinder unbinder){
-    //        mUnBinder = unbinder;
-    //    }
 
     override fun show(fragmentManager: FragmentManager, tag: String) {
         val ft = fragmentManager.beginTransaction()

@@ -18,6 +18,8 @@ import android.support.v7.widget.AppCompatTextView
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import butterknife.ButterKnife
+import butterknife.Unbinder
 import com.chandraabdulfattah.coremvp.MvpApp
 import com.chandraabdulfattah.coremvp.R
 import com.chandraabdulfattah.coremvp.di.component.ActivityComponent
@@ -29,17 +31,18 @@ import kotlinx.android.synthetic.main.default_toolbar.*
 
 /**
  * Created by bezzo on 26/09/17.
+ * Uncomment code below Butter Knife if you use ButterKnife
  */
 
-open class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Callback {
+open class BaseActivity(var unbinder: Unbinder? = null) : AppCompatActivity(), BaseActivityView, BaseFragment.Callback {
 
-    private var mProgressDialog: ProgressDialog? = null
-    var activityComponent: ActivityComponent? = null
-        private set
-    //    private Unbinder mUnbinder;
-    private var mActionBar: ActionBar? = null
-    protected var dataReceived: Bundle? = null
-    private var mContext: Context? = null
+    lateinit var mProgressDialog: ProgressDialog
+    lateinit var activityComponent: ActivityComponent
+    lateinit var mActionBar: ActionBar
+    lateinit var dataReceived: Bundle
+    lateinit var mContext: Context
+    //Butter Knife
+//    var mUnbinder : Unbinder? = null
 
     val rootView: View
         get() = findViewById(android.R.id.content)
@@ -57,7 +60,7 @@ open class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Ca
 
         setSupportActionBar(toolbar)
 
-        mActionBar = supportActionBar
+        mActionBar = supportActionBar!!
 
         if (toolbar != null){
             toolbar.setNavigationOnClickListener(View.OnClickListener { view: View? ->
@@ -70,6 +73,23 @@ open class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Ca
         }
 
         onInitializedView(savedInstanceState)
+    }
+
+    override fun setContentView(layoutResID: Int) {
+        super.setContentView(layoutResID)
+        // Butter Knife
+//        setButterknifeUnbinder(ButterKnife.bind(this))
+    }
+
+    // Butter Knife
+//    fun setButterknifeUnbinder(unbinder : Unbinder){
+//        mUnbinder = unbinder
+//    }
+
+    override fun onDestroy() {
+        // Butter Knife
+//        mUnbinder?.unbind()
+        super.onDestroy()
     }
 
     protected open fun onInitializedView(savedInstanceState: Bundle?) {
