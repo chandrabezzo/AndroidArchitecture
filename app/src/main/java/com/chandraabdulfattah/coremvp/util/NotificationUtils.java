@@ -9,11 +9,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.chandraabdulfattah.coremvp.BuildConfig;
-import com.chandraabdulfattah.coremvp.MainActivity;
+import com.chandraabdulfattah.coremvp.ui.features.main.MainActivity;
 import com.chandraabdulfattah.coremvp.R;
 import com.chandraabdulfattah.coremvp.data.model.network.NotificationData;
 

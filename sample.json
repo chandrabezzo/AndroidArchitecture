@@ -1,0 +1,10 @@
+{
+	"user": {
+		"code": 200, 
+		"message": "Berhasil",
+		"data" : {
+			"nama" : "Chandra Abdul Fattah",
+			"jabatan": "Mobile Programmer"
+		}
+	}
+}

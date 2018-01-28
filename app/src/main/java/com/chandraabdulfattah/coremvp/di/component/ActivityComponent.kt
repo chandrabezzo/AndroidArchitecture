@@ -2,6 +2,7 @@ package com.chandraabdulfattah.coremvp.di.component
 
 import com.chandraabdulfattah.coremvp.di.PerActivity
 import com.chandraabdulfattah.coremvp.di.module.ActivityModule
+import com.chandraabdulfattah.coremvp.ui.features.main.MainActivity
 import dagger.Component
 
 /**
@@ -13,5 +14,6 @@ import dagger.Component
         dependencies = arrayOf(ApplicationComponent::class),
         modules = arrayOf(ActivityModule::class))
 interface ActivityComponent {
-//    fun inject(mainActivity: MainActivity)
+
+    fun inject(mainActivity: MainActivity)
 }

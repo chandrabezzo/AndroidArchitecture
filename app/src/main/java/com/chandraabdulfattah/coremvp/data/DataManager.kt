@@ -26,8 +26,14 @@ class DataManager @Inject
 constructor(@ApplicationContext private val mContext: Context,
             private val mLocalStorageHelper: LocalStorageHelperContract,
             private val mSessionHelper: SessionHelperContract,
-            private val mApiHelper: ApiHelperContract, @Inject override val localStorageHelper: LocalStorageHelper)
+            private val mApiHelper: ApiHelperContract)
     : DataManagerContract {
+
+    @Inject
+    lateinit var local : LocalStorageHelper
+
+    override val localStorageHelper: LocalStorageHelper
+        get() = local
 
     override operator fun get(endpoint: String, params: Map<String, String>?, paths: Map<String, String>?,
                               headers: Map<String, String>?): Rx2ANRequest {

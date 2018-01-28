@@ -2,8 +2,8 @@ package com.chandraabdulfattah.coremvp.data.local.sampleDB
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
-import com.chandraabdulfattah.coremvp.data.local.sampleDB.daoTable.SampleDao
-import com.chandraabdulfattah.coremvp.data.model.local.SampleTable
+import com.chandraabdulfattah.coremvp.data.local.sampleDB.daoTable.UserDao
+import com.chandraabdulfattah.coremvp.data.model.local.UserLokal
 import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.migration.Migration
 import android.arch.persistence.room.Room
@@ -13,12 +13,12 @@ import com.chandraabdulfattah.coremvp.util.constanta.AppConstans
 
 /**
  * Created by bezzo on 11/01/18.
- * Add more entities = arrayOf(SampleTable::class, SampleBTable::class)
+ * Add more entities = arrayOf(UserLokal::class, SampleBTable::class)
  */
-@Database(entities = arrayOf(SampleTable::class), version = 1)
+@Database(entities = arrayOf(UserLokal::class), version = 1)
 abstract class SampleDatabase : RoomDatabase() {
 
-    abstract fun sampleDao() : SampleDao
+    abstract fun userDao() : UserDao
 
     companion object {
         @Volatile private var INSTANCE: SampleDatabase? = null

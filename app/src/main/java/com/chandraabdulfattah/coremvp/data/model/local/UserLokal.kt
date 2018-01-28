@@ -14,15 +14,17 @@ import com.chandraabdulfattah.coremvp.data.local.sampleDB.SampleDBConstant
  * Add attribute non null values using @NonNull
  */
 
-@Entity(tableName = SampleDBConstant.SAMPLE_TABLE)
-class SampleTable {
+@Entity(tableName = SampleDBConstant.USER)
+class UserLokal {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = SampleDBConstant.ID)
-    var id : Int = 1
+    var id : Long = 0
 
-    @ColumnInfo(name = SampleDBConstant.ATTRIBUTE_NAME)
-    var attributeName : String? = null
+    @ColumnInfo(name = SampleDBConstant.NAMA)
+    var nama : String? = null
 
+    @ColumnInfo(name = SampleDBConstant.JABATAN)
+    var jabatan : String? = null
 }

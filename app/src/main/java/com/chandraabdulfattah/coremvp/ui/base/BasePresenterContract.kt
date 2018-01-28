@@ -19,4 +19,6 @@ interface BasePresenterContract<in V : BaseView> {
     fun logout()
 
     fun clearLog()
+
+    fun logging(message : String)
 }

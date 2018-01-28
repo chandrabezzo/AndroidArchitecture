@@ -5,4 +5,8 @@
     <string name="turn_on_gps">Please Turn On GPS</string>
     <string name="some_error">Some Error Occurred!</string>
 
+    <!-- Main -->
+    <string name="beranda">Beranda</string>
+    <string name="lokal">Lokal</string>
+    <string name="api">Api</string>
 </resources>

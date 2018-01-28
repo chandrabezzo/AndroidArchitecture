@@ -8,7 +8,8 @@ object SampleDBConstant {
 
     const val ID = "id"
 
-    // Sample Table
-    const val SAMPLE_TABLE = "SampleTable"
-    const val ATTRIBUTE_NAME = "attribute_name"
+    // User Table
+    const val USER = "User"
+    const val NAMA = "nama"
+    const val JABATAN = "jabatan"
 }

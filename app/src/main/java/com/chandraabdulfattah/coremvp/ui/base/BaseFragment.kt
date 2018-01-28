@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.chandraabdulfattah.coremvp.R
 import com.chandraabdulfattah.coremvp.di.component.ActivityComponent
+import kotlinx.android.synthetic.main.default_toolbar.*
 
 /**
  * Created by bezzo on 21/12/17.
@@ -50,6 +51,13 @@ open class BaseFragment : Fragment(), BaseFragmentView {
         //        setUnBinder(ButterKnife.bind(this, rootView));
         dataReceived = arguments
         mContext = activity
+
+        if ((activity as BaseActivity).toolbar != null){
+            (activity as BaseActivity).toolbar.setNavigationOnClickListener(View.OnClickListener { view: View? ->
+                onBackPressed()
+            })
+        }
+
         onViewInitialized(savedInstanceState)
         return rootView
     }
@@ -186,5 +194,9 @@ open class BaseFragment : Fragment(), BaseFragmentView {
         fun onFragmentAttached()
 
         fun onFragmentDetached(TAG: String)
+    }
+
+    override fun onBackPressed() {
+        (activity as BaseActivity).finish()
     }
 }
