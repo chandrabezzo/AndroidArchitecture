@@ -12,6 +12,7 @@ import com.chandraabdulfattah.coremvp.util.constanta.ApiConstans
 import com.chandraabdulfattah.coremvp.util.rx.SchedulerProviderContract
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
+import okhttp3.Response
 import org.json.JSONObject
 import java.util.concurrent.Executors
 import javax.inject.Inject

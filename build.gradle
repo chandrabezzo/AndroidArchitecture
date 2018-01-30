@@ -49,4 +49,5 @@ ext {
     constraintLayoutVersion = '1.0.2'
     playServiceVersion = '11.8.0'
     mapsUtils = '0.5+'
+    materialCalendarViewVersion = '1.4.3'
 }

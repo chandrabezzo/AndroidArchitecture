@@ -104,6 +104,7 @@ dependencies {
     // UI
     implementation "com.jakewharton:butterknife:$rootProject.ext.butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$rootProject.ext.butterKnifeVersion"
+    implementation "com.prolificinteractive:material-calendarview:$rootProject.ext.materialCalendarViewVersion"
 
 
     //  Map

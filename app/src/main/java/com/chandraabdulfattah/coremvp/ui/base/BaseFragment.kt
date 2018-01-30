@@ -31,8 +31,8 @@ open class BaseFragment : Fragment(), BaseFragmentView {
     lateinit var mContext: Context
     lateinit var mUnbinder: Unbinder
 
-    val activityComponent: ActivityComponent?
-        get() = baseActivity?.activityComponent
+    val activityComponent: ActivityComponent
+        get() = baseActivity?.activityComponent!!
 
     protected open fun onViewInitialized(savedInstanceState: Bundle?) {
 
