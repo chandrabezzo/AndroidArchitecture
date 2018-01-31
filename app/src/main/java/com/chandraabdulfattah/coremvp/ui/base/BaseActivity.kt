@@ -25,6 +25,7 @@ import com.chandraabdulfattah.coremvp.R
 import com.chandraabdulfattah.coremvp.di.component.ActivityComponent
 import com.chandraabdulfattah.coremvp.di.component.DaggerActivityComponent
 import com.chandraabdulfattah.coremvp.di.module.ActivityModule
+import com.chandraabdulfattah.coremvp.util.AppLogger
 import com.chandraabdulfattah.coremvp.util.CommonUtils
 import com.chandraabdulfattah.coremvp.util.NetworkUtils
 import kotlinx.android.synthetic.main.default_toolbar.*
@@ -34,12 +35,12 @@ import kotlinx.android.synthetic.main.default_toolbar.*
  * Uncomment code below Butter Knife if you use ButterKnife
  */
 
-open class BaseActivity(var unbinder: Unbinder? = null) : AppCompatActivity(), BaseActivityView, BaseFragment.Callback {
+open class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Callback {
 
     lateinit var mProgressDialog: ProgressDialog
     lateinit var activityComponent: ActivityComponent
-    lateinit var mActionBar: ActionBar
-    lateinit var dataReceived: Bundle
+    var mActionBar: ActionBar? = null
+    var dataReceived: Bundle? = null
     lateinit var mContext: Context
     //Butter Knife
 //    var mUnbinder : Unbinder? = null
@@ -60,7 +61,7 @@ open class BaseActivity(var unbinder: Unbinder? = null) : AppCompatActivity(), B
 
         setSupportActionBar(toolbar)
 
-        mActionBar = supportActionBar!!
+        mActionBar = supportActionBar
 
         if (toolbar != null){
             toolbar.setNavigationOnClickListener(View.OnClickListener { view: View? ->
@@ -303,5 +304,10 @@ open class BaseActivity(var unbinder: Unbinder? = null) : AppCompatActivity(), B
                 .R.id.snackbar_text) as AppCompatTextView
         textView.setTextColor(ContextCompat.getColor(this, R.color.white))
         snackbar.show()
+    }
+
+    override fun someError(tag : String) {
+        AppLogger.e("$tag, " + getString(R.string.some_error))
+        showSnackBar("$tag, " + getString(R.string.some_error), Snackbar.LENGTH_SHORT)
     }
 }

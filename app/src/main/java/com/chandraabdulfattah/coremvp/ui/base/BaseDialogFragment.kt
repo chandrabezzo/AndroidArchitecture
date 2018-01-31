@@ -12,7 +12,9 @@ import android.view.Window
 import android.widget.Toast
 import butterknife.ButterKnife
 import butterknife.Unbinder
+import com.chandraabdulfattah.coremvp.R
 import com.chandraabdulfattah.coremvp.di.component.ActivityComponent
+import com.chandraabdulfattah.coremvp.util.AppLogger
 
 /**
  * Created by bezzo on 21/12/17.
@@ -21,7 +23,7 @@ import com.chandraabdulfattah.coremvp.di.component.ActivityComponent
 open class BaseDialogFragment : DialogFragment(), BaseDialogFragmentView {
 
     var baseActivity: BaseActivity? = null
-    lateinit var dataReceived: Bundle
+    var dataReceived: Bundle? = null
     private lateinit var rootView: View
 //    var mUnbinder : Unbinder = null
 
@@ -36,7 +38,7 @@ open class BaseDialogFragment : DialogFragment(), BaseDialogFragmentView {
         rootView = inflater.inflate(setLayout(), container, false)
         // Butter Knife
 //        setButterknifeUnbinder(ButterKnife.bind(this, rootView!!))
-        dataReceived = arguments!!
+        dataReceived = arguments
         onViewInitialized(savedInstanceState)
         return rootView
     }
@@ -180,5 +182,10 @@ open class BaseDialogFragment : DialogFragment(), BaseDialogFragmentView {
         }
         ft.addToBackStack(null)
         show(ft, tag)
+    }
+
+    override fun someError(tag: String) {
+        AppLogger.e("$tag, " + getString(R.string.some_error))
+        showToast("$tag, " + getString(R.string.some_error), Toast.LENGTH_SHORT)
     }
 }

@@ -15,6 +15,7 @@ import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.chandraabdulfattah.coremvp.R
 import com.chandraabdulfattah.coremvp.di.component.ActivityComponent
+import com.chandraabdulfattah.coremvp.util.AppLogger
 import kotlinx.android.synthetic.main.default_toolbar.*
 
 /**
@@ -26,7 +27,7 @@ open class BaseFragment : Fragment(), BaseFragmentView {
 
     var baseActivity: BaseActivity? = null
     var mProgressDialog: ProgressDialog? = null
-    lateinit var dataReceived: Bundle
+    var dataReceived: Bundle? = null
     private lateinit var rootView: View
     lateinit var mContext: Context
     lateinit var mUnbinder: Unbinder
@@ -50,7 +51,7 @@ open class BaseFragment : Fragment(), BaseFragmentView {
         rootView = inflater.inflate(setLayout(), container, false)
         // Butter Knife
 //        setButterKnifeUnbinder(ButterKnife.bind(this, rootView))
-        dataReceived = arguments!!
+        dataReceived = arguments
         mContext = activity!!
 
         if ((activity as BaseActivity).toolbar != null){
@@ -209,5 +210,10 @@ open class BaseFragment : Fragment(), BaseFragmentView {
 
     override fun onBackPressed() {
         (activity as BaseActivity).finish()
+    }
+
+    override fun someError(tag: String) {
+        AppLogger.e("$tag, " + getString(R.string.some_error))
+        showSnackBar("$tag, " + getString(R.string.some_error), Snackbar.LENGTH_SHORT)
     }
 }

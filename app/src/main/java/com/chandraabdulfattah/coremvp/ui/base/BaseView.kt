@@ -43,4 +43,6 @@ interface BaseView {
     fun showProgressDialog(message: String, cancelable: Boolean)
 
     fun dismissProgressDialog()
+
+    fun someError(tag : String)
 }
