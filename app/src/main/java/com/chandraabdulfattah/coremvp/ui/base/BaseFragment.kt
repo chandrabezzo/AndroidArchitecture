@@ -209,7 +209,7 @@ open class BaseFragment : Fragment(), BaseFragmentView {
     }
 
     override fun onBackPressed() {
-        (activity as BaseActivity).finish()
+        (activity as BaseActivity).onNavigationClick((activity as BaseActivity).toolbar)
     }
 
     override fun someError(tag: String) {
