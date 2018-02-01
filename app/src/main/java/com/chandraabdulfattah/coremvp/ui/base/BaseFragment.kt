@@ -197,10 +197,11 @@ open class BaseFragment : Fragment(), BaseFragmentView {
 //        mUnbinder = unbinder
 //    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        mUnbinder.unbind()
-    }
+    // Butter Knife
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        mUnbinder.unbind()
+//    }
 
     interface Callback {
         fun onFragmentAttached()
