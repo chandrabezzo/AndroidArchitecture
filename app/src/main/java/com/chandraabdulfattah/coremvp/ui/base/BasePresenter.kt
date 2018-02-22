@@ -9,7 +9,6 @@ import com.chandraabdulfattah.coremvp.util.AppLogger
 import com.chandraabdulfattah.coremvp.util.CommonUtils
 import com.chandraabdulfattah.coremvp.util.rx.SchedulerProviderContract
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.Executors
 import javax.inject.Inject

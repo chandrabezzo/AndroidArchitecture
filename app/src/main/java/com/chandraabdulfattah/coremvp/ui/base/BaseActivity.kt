@@ -98,7 +98,7 @@ open class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Ca
     }
 
     fun onNavigationClick(view: View) {
-        onBackPressed()
+        onClickBack()
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -292,7 +292,7 @@ open class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Ca
         }
     }
 
-    override fun onBackPressed() {
+    override fun onClickBack() {
         finish()
     }
 

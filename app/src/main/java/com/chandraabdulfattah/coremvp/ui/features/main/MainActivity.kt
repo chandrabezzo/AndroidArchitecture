@@ -1,6 +1,7 @@
 package com.chandraabdulfattah.coremvp.ui.features.main
 
 import android.os.Bundle
+import android.widget.Toast
 import com.chandraabdulfattah.coremvp.R
 import com.chandraabdulfattah.coremvp.data.model.local.UserLokal
 import com.chandraabdulfattah.coremvp.data.model.network.User
@@ -36,5 +37,7 @@ class MainActivity : BaseActivity(), MainViewContract {
 
     override fun showUserLokal(userLokal: UserLokal) {
         tv_lokal.text = userLokal.nama + " - " + userLokal.jabatan
+
+        showToast(userLokal.id.toString(), Toast.LENGTH_SHORT)
     }
 }

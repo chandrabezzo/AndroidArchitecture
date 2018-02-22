@@ -34,7 +34,7 @@ ext {
     roomPagingVersion = '1.0.0-alpha4-1'
     hawkVersion = '2.0.1'
     rx2FastAndroidNetworking = '1.0.1'
-    glideVersion = '4.4.0'
+    glideVersion = '4.6.0'
     gsonVersion = '2.8.0'
     debugDBVersion = '1.0.1'
     dagger2Version = '2.8'

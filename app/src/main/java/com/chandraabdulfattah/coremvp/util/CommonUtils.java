@@ -5,12 +5,18 @@ import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
+import android.text.Html;
+import android.text.Spanned;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -75,7 +81,7 @@ public final class CommonUtils {
     }
 
     public static String loadJSONFromAsset(Context context, String jsonFileName)
-        throws IOException {
+            throws IOException {
 
         AssetManager manager = context.getAssets();
         InputStream is = manager.open(jsonFileName);
@@ -140,6 +146,43 @@ public final class CommonUtils {
             fabView.hide();
         } else if (dy < 0 && fabView.getVisibility() != View.VISIBLE) {
             fabView.show();
+        }
+    }
+
+    public static int getColor(Context context, int id){
+        if (Build.VERSION.SDK_INT >= 23){
+            return context.getResources().getColor(id, context.getTheme());
+        }
+
+        return context.getResources().getColor(id);
+    }
+
+    public static Drawable getDrawable(Context context, int id){
+        if (Build.VERSION.SDK_INT >= 21){
+            return  context.getResources().getDrawable(id, context.getTheme());
+        }
+        return context.getResources().getDrawable(id);
+    }
+
+    public static Spanned getTextFromHtml(String html){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_COMPACT);
+        }
+        else {
+            return Html.fromHtml(html);
+        }
+    }
+
+    public static void changeLanguage(Context context, String language){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            LocaleHelper.onAttach(context, language);
+        }
+        else {
+            Resources res = context.getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            Configuration configuration = res.getConfiguration();
+            configuration.setLocale(new Locale(language));
+            res.updateConfiguration(configuration, dm);
         }
     }
 }

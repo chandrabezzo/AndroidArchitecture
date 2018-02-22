@@ -18,4 +18,6 @@ interface BaseActivityView : BaseView {
     fun showSnackBar(message: String, duration: Int)
 
     fun gotoDialog(dialogClass: Class<*>, data: Bundle?)
+
+    fun onClickBack()
 }
