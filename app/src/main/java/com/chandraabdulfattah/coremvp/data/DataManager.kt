@@ -12,7 +12,6 @@ import com.rx2androidnetworking.Rx2ANRequest
 import org.json.JSONObject
 
 import java.io.File
-import java.util.HashMap
 
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -46,23 +45,18 @@ constructor(@ApplicationContext private val mContext: Context,
     }
 
     override fun post(endpoint: String, headers: Map<String, String>?,
-                      paths: Map<String, String>?, body: Any): Rx2ANRequest {
+                      paths: Map<String, String>?, body: Any?): Rx2ANRequest {
         return mApiHelper.post(endpoint, headers, paths, body)
     }
 
-    override fun postJson(endpoint: String, headers: Map<String, String>?,
-                          paths: Map<String, String>?, body: JSONObject): Rx2ANRequest {
-        return mApiHelper.postJson(endpoint, headers, paths, body)
+    override fun post(endpoint: String, headers: Map<String, String>?,
+                      paths: Map<String, String>?, body: JSONObject?): Rx2ANRequest {
+        return mApiHelper.post(endpoint, headers, paths, body)
     }
 
-    override fun postJsonObject(endpoint: String, headers: Map<String, String>?,
-                                paths: Map<String, String>?, jsonObject: Any): Rx2ANRequest {
-        return mApiHelper.postJsonObject(endpoint, headers, paths, jsonObject)
-    }
-
-    override fun postFile(endpoint: String, headers: Map<String, String>?,
-                          paths: Map<String, String>?, file: File): Rx2ANRequest {
-        return mApiHelper.postFile(endpoint, headers, paths, file)
+    override fun post(endpoint: String, headers: Map<String, String>?,
+                      paths: Map<String, String>?, file: File?): Rx2ANRequest {
+        return mApiHelper.post(endpoint, headers, paths, file)
     }
 
     override fun put(endpoint: String, headers: Map<String, String>?,
@@ -71,23 +65,18 @@ constructor(@ApplicationContext private val mContext: Context,
     }
 
     override fun put(endpoint: String, headers: Map<String, String>?,
-                     paths: Map<String, String>?, body: Any): Rx2ANRequest {
+                     paths: Map<String, String>?, body: Any?): Rx2ANRequest {
         return mApiHelper.put(endpoint, headers, paths, body)
     }
 
-    override fun putJson(endpoint: String, headers: Map<String, String>?,
-                         paths: Map<String, String>?, body: JsonObject): Rx2ANRequest {
-        return mApiHelper.putJson(endpoint, headers, paths, body)
+    override fun put(endpoint: String, headers: Map<String, String>?, paths: Map<String, String>?,
+                     body: JSONObject?): Rx2ANRequest {
+        return mApiHelper.put(endpoint, headers, paths, body)
     }
 
-    override fun putFile(endpoint: String, headers: Map<String, String>?,
-                         paths: Map<String, String>?, file: File): Rx2ANRequest {
-        return mApiHelper.putFile(endpoint, headers, paths, file)
-    }
-
-    override fun putJsonObject(endpoint: String, headers: Map<String, String>?,
-                               paths: Map<String, String>?, jsonObject: Any): Rx2ANRequest {
-        return mApiHelper.putJsonObject(endpoint, headers, paths, jsonObject)
+    override fun put(endpoint: String, headers: Map<String, String>?,
+                     paths: Map<String, String>?, file: File?): Rx2ANRequest {
+        return mApiHelper.put(endpoint, headers, paths, file)
     }
 
     override fun delete(endpoint: String, headers: Map<String, String>?,
@@ -101,18 +90,13 @@ constructor(@ApplicationContext private val mContext: Context,
     }
 
     override fun delete(endpoint: String, headers: Map<String, String>?,
-                        paths: Map<String, String>?, body: Any): Rx2ANRequest {
+                        paths: Map<String, String>?, body: Any?): Rx2ANRequest {
         return mApiHelper.delete(endpoint, headers, paths, body)
     }
 
-    override fun deleteJson(endpoint: String, headers: Map<String, String>?,
-                            paths: Map<String, String>?, body: JSONObject): Rx2ANRequest {
-        return mApiHelper.deleteJson(endpoint, headers, paths, body)
-    }
-
-    override fun deleteJsonObject(endpoint: String, headers: Map<String, String>?,
-                                  paths: Map<String, String>?, jsonObject: Any): Rx2ANRequest {
-        return mApiHelper.deleteJsonObject(endpoint, headers, paths, jsonObject)
+    override fun delete(endpoint: String, headers: Map<String, String>?,
+                        paths: Map<String, String>?, body: JSONObject?): Rx2ANRequest {
+        return mApiHelper.delete(endpoint, headers, paths, body)
     }
 
     override fun download(endpoint: String, savedLocation: String, fileName: String,

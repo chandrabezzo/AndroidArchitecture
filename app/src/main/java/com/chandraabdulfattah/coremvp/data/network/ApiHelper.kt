@@ -2,15 +2,13 @@ package com.chandraabdulfattah.coremvp.data.network
 
 import com.androidnetworking.common.Priority
 import com.chandraabdulfattah.coremvp.util.AppLogger
-import com.google.gson.JsonObject
 import com.rx2androidnetworking.Rx2ANRequest
 import com.rx2androidnetworking.Rx2AndroidNetworking
-
+import okhttp3.OkHttpClient
 import org.json.JSONObject
-
 import java.io.File
 import java.util.concurrent.Executors
-
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,11 +20,22 @@ import javax.inject.Singleton
 class ApiHelper @Inject
 constructor() : ApiHelperContract {
 
+    var okHttpClient = OkHttpClient().newBuilder()
+            .connectTimeout(20, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .writeTimeout(20, TimeUnit.SECONDS)
+            .build()
+
+    var httpClientUpload = OkHttpClient().newBuilder()
+            .connectTimeout(2, TimeUnit.MINUTES)
+            .readTimeout(2, TimeUnit.MINUTES)
+            .writeTimeout(2, TimeUnit.MINUTES)
+            .build()
+
     override fun get(endpoint: String, params: Map<String, String>?,
-                              paths: Map<String, String>?, headers: Map<String, String>?): Rx2ANRequest {
+                     paths: Map<String, String>?, headers: Map<String, String>?): Rx2ANRequest {
 
         val getRequest = Rx2AndroidNetworking.get(endpoint)
-
         AppLogger.i("endpoint : " + endpoint)
 
         if (headers != null) {
@@ -45,6 +54,7 @@ constructor() : ApiHelperContract {
         }
 
         getRequest.setPriority(Priority.LOW)
+        getRequest.setOkHttpClient(okHttpClient)
 
         return getRequest.build()
     }
@@ -65,30 +75,13 @@ constructor() : ApiHelperContract {
         postRequest.addBodyParameter(body)
 
         postRequest.setPriority(Priority.MEDIUM)
+        postRequest.setOkHttpClient(okHttpClient)
 
         return postRequest.build()
     }
 
     override fun post(endpoint: String, headers: Map<String, String>?,
-                      paths: Map<String, String>?, body: Any): Rx2ANRequest {
-        val postRequest = Rx2AndroidNetworking.post(endpoint)
-
-        if (headers != null) {
-            postRequest.addHeaders(headers)
-        }
-
-        if (paths != null) {
-            postRequest.addPathParameter(paths)
-        }
-
-        postRequest.addBodyParameter(body)
-        postRequest.setPriority(Priority.MEDIUM)
-
-        return postRequest.build()
-    }
-
-    override fun postJson(endpoint: String, headers: Map<String, String>?,
-                          paths: Map<String, String>?, body: JSONObject): Rx2ANRequest {
+                      paths: Map<String, String>?, body: JSONObject?): Rx2ANRequest {
 
         val postRequest = Rx2AndroidNetworking.post(endpoint)
 
@@ -102,12 +95,13 @@ constructor() : ApiHelperContract {
 
         postRequest.addJSONObjectBody(body)
         postRequest.setPriority(Priority.MEDIUM)
+        postRequest.setOkHttpClient(okHttpClient)
 
         return postRequest.build()
     }
 
-    override fun postJsonObject(endpoint: String, headers: Map<String, String>?,
-                                paths: Map<String, String>?, jsonObject: Any): Rx2ANRequest {
+    override fun post(endpoint: String, headers: Map<String, String>?,
+                      paths: Map<String, String>?, body: Any?): Rx2ANRequest {
 
         val postRequest = Rx2AndroidNetworking.post(endpoint)
         AppLogger.i("endpoint : " + endpoint)
@@ -122,15 +116,15 @@ constructor() : ApiHelperContract {
             AppLogger.i("paths : " + paths.toString())
         }
 
-        postRequest.addApplicationJsonBody(jsonObject)
-        AppLogger.i("body : " + jsonObject.toString())
+        postRequest.addApplicationJsonBody(body)
         postRequest.setPriority(Priority.MEDIUM)
+        postRequest.setOkHttpClient(okHttpClient)
 
         return postRequest.build()
     }
 
-    override fun postFile(endpoint: String, headers: Map<String, String>?,
-                          paths: Map<String, String>?, file: File): Rx2ANRequest {
+    override fun post(endpoint: String, headers: Map<String, String>?,
+                      paths: Map<String, String>?, file: File?): Rx2ANRequest {
 
         val postRequest = Rx2AndroidNetworking.post(endpoint)
 
@@ -144,6 +138,7 @@ constructor() : ApiHelperContract {
 
         postRequest.addFileBody(file)
         postRequest.setPriority(Priority.HIGH)
+        postRequest.setOkHttpClient(okHttpClient)
 
         return postRequest.build()
     }
@@ -163,12 +158,13 @@ constructor() : ApiHelperContract {
 
         putRequest.addBodyParameter(body)
         putRequest.setPriority(Priority.MEDIUM)
+        putRequest.setOkHttpClient(okHttpClient)
 
         return putRequest.build()
     }
 
     override fun put(endpoint: String, headers: Map<String, String>?,
-                     paths: Map<String, String>?, body: Any): Rx2ANRequest {
+                     paths: Map<String, String>?, body: Any?): Rx2ANRequest {
 
         val putRequest = Rx2AndroidNetworking.put(endpoint)
 
@@ -182,12 +178,13 @@ constructor() : ApiHelperContract {
 
         putRequest.addBodyParameter(body)
         putRequest.setPriority(Priority.MEDIUM)
+        putRequest.setOkHttpClient(okHttpClient)
 
         return putRequest.build()
     }
 
-    override fun putJson(endpoint: String, headers: Map<String, String>?,
-                         paths: Map<String, String>?, body: JsonObject): Rx2ANRequest {
+    override fun put(endpoint: String, headers: Map<String, String>?,
+                     paths: Map<String, String>?, body: JSONObject?): Rx2ANRequest {
 
         val putRequest = Rx2AndroidNetworking.put(endpoint)
 
@@ -201,12 +198,13 @@ constructor() : ApiHelperContract {
 
         putRequest.addBodyParameter(body)
         putRequest.setPriority(Priority.MEDIUM)
+        putRequest.setOkHttpClient(okHttpClient)
 
         return putRequest.build()
     }
 
-    override fun putFile(endpoint: String, headers: Map<String, String>?,
-                         paths: Map<String, String>?, file: File): Rx2ANRequest {
+    override fun put(endpoint: String, headers: Map<String, String>?,
+                     paths: Map<String, String>?, file: File?): Rx2ANRequest {
 
         val putRequest = Rx2AndroidNetworking.put(endpoint)
 
@@ -220,25 +218,7 @@ constructor() : ApiHelperContract {
 
         putRequest.addFileBody(file)
         putRequest.setPriority(Priority.HIGH)
-
-        return putRequest.build()
-    }
-
-    override fun putJsonObject(endpoint: String, headers: Map<String, String>?,
-                               paths: Map<String, String>?, jsonObject: Any): Rx2ANRequest {
-
-        val putRequest = Rx2AndroidNetworking.put(endpoint)
-
-        if (headers != null) {
-            putRequest.addHeaders(headers)
-        }
-
-        if (paths != null) {
-            putRequest.addPathParameter(paths)
-        }
-
-        putRequest.addApplicationJsonBody(jsonObject)
-        putRequest.setPriority(Priority.MEDIUM)
+        putRequest.setOkHttpClient(okHttpClient)
 
         return putRequest.build()
     }
@@ -257,6 +237,7 @@ constructor() : ApiHelperContract {
         }
 
         deleteRequest.setPriority(Priority.MEDIUM)
+        deleteRequest.setOkHttpClient(okHttpClient)
 
         return deleteRequest.build()
     }
@@ -276,12 +257,13 @@ constructor() : ApiHelperContract {
 
         deleteRequest.addBodyParameter(body)
         deleteRequest.setPriority(Priority.MEDIUM)
+        deleteRequest.setOkHttpClient(okHttpClient)
 
         return deleteRequest.build()
     }
 
     override fun delete(endpoint: String, headers: Map<String, String>?,
-                        paths: Map<String, String>?, body: Any): Rx2ANRequest {
+                        paths: Map<String, String>?, body: Any?): Rx2ANRequest {
 
         val deleteRequest = Rx2AndroidNetworking.delete(endpoint)
 
@@ -295,12 +277,13 @@ constructor() : ApiHelperContract {
 
         deleteRequest.addBodyParameter(body)
         deleteRequest.setPriority(Priority.MEDIUM)
+        deleteRequest.setOkHttpClient(okHttpClient)
 
         return deleteRequest.build()
     }
 
-    override fun deleteJson(endpoint: String, headers: Map<String, String>?,
-                            paths: Map<String, String>?, body: JSONObject): Rx2ANRequest {
+    override fun delete(endpoint: String, headers: Map<String, String>?,
+                        paths: Map<String, String>?, body: JSONObject?): Rx2ANRequest {
 
         val deleteRequest = Rx2AndroidNetworking.delete(endpoint)
 
@@ -314,25 +297,7 @@ constructor() : ApiHelperContract {
 
         deleteRequest.addJSONObjectBody(body)
         deleteRequest.setPriority(Priority.MEDIUM)
-
-        return deleteRequest.build()
-    }
-
-    override fun deleteJsonObject(endpoint: String, headers: Map<String, String>?,
-                                  paths: Map<String, String>?, jsonObject: Any): Rx2ANRequest {
-
-        val deleteRequest = Rx2AndroidNetworking.delete(endpoint)
-
-        if (headers != null) {
-            deleteRequest.addHeaders(headers)
-        }
-
-        if (paths != null) {
-            deleteRequest.addPathParameter(paths)
-        }
-
-        deleteRequest.addApplicationJsonBody(jsonObject)
-        deleteRequest.setPriority(Priority.MEDIUM)
+        deleteRequest.setOkHttpClient(okHttpClient)
 
         return deleteRequest.build()
     }
@@ -343,17 +308,21 @@ constructor() : ApiHelperContract {
 
         val downloadBuilder = Rx2AndroidNetworking.download(endpoint,
                 savedLocation, fileName)
+        AppLogger.i("endpoint : " + endpoint)
 
         if (headers != null) {
             downloadBuilder.addHeaders(headers)
+            AppLogger.i("endpoint : " + headers.toString())
         }
 
         if (params != null) {
             downloadBuilder.addQueryParameter(params)
+            AppLogger.i("params : " + params.toString())
         }
 
         if (paths != null) {
             downloadBuilder.addPathParameter(paths)
+            AppLogger.i("Path : " + paths.toString())
         }
 
         downloadBuilder.setPercentageThresholdForCancelling(50)
@@ -373,17 +342,19 @@ constructor() : ApiHelperContract {
                 .addMultipartParameter(multipart)
                 .setExecutor(Executors.newSingleThreadExecutor())
                 .setPriority(Priority.HIGH)
+                .setOkHttpClient(httpClientUpload)
                 .build()
     }
 
     override fun uploads(endpoint: String, params: Map<String, String>, paths: Map<String, String>,
-                headers: Map<String, String>, files: Map<String, File>, multipart: Map<String, String>): Rx2ANRequest {
+                         headers: Map<String, String>, files: Map<String, File>, multipart: Map<String, String>): Rx2ANRequest {
         return Rx2AndroidNetworking.upload(endpoint)
                 .addHeaders(headers)
                 .addMultipartFile(files)
                 .addMultipartParameter(multipart)
                 .setExecutor(Executors.newSingleThreadExecutor())
                 .setPriority(Priority.HIGH)
+                .setOkHttpClient(httpClientUpload)
                 .build()
     }
 }

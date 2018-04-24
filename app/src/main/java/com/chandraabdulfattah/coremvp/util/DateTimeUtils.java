@@ -21,6 +21,12 @@ public class DateTimeUtils {
         return months[position];
     }
 
+    public static String getDayOfWeek(int position){
+        String[] dayOfWeek = new String[]{"Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"};
+
+        return dayOfWeek[position];
+    }
+
     public static String epochToDate(long epoch){
         return new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 .format(new Date(epoch*1000));
@@ -136,12 +142,6 @@ public class DateTimeUtils {
         return calendar.getTime().getTime();
     }
 
-    public static long getTanggalCuti(int minTanggalPengajuan){
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, minTanggalPengajuan);
-        return calendar.getTime().getTime();
-    }
-
     public static String getAddedDate(String date, int addDay){
         String[] splitDate = date.split("/");
         Calendar calendar = Calendar.getInstance();
@@ -164,5 +164,47 @@ public class DateTimeUtils {
         calendar.set(Calendar.YEAR, Integer.parseInt(splitDate[2]));
 
         return calendar.getTime().getTime();
+    }
+
+    public static Calendar createDateTime(String dateTime){
+        String[] datetimeSplit = dateTime.split(" ");
+        String[] dateSplit = datetimeSplit[0].split("-");
+        String[] timeSplit = datetimeSplit[1].split(":");
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, Integer.parseInt(dateSplit[0]));
+        calendar.set(Calendar.MONTH, Integer.parseInt(dateSplit[1]) - 1);
+        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dateSplit[2]));
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeSplit[0]));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(timeSplit[1]));
+        calendar.set(Calendar.SECOND, Integer.parseInt(timeSplit[2]));
+
+        return calendar;
+    }
+
+    public static String getHour(Integer hour){
+        String textHour = "";
+
+        if (hour < 10){
+            textHour = "0"+hour;
+        }
+        else {
+            textHour = hour.toString();
+        }
+
+        return textHour;
+    }
+
+    public static String getMinute(Integer minute){
+        String textMinute = "";
+
+        if (minute < 10){
+            textMinute = "0"+minute;
+        }
+        else {
+            textMinute = minute.toString();
+        }
+
+        return textMinute;
     }
 }

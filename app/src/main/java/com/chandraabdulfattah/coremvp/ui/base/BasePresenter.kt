@@ -3,7 +3,7 @@ package com.chandraabdulfattah.coremvp.ui.base
 import android.widget.Toast
 import com.androidnetworking.error.ANError
 import com.chandraabdulfattah.coremvp.data.DataManagerContract
-import com.chandraabdulfattah.coremvp.data.model.network.ApiError
+import com.chandraabdulfattah.coremvp.data.model.ApiError
 import com.chandraabdulfattah.coremvp.data.session.SessionConstants
 import com.chandraabdulfattah.coremvp.util.AppLogger
 import com.chandraabdulfattah.coremvp.util.CommonUtils
@@ -53,22 +53,36 @@ constructor(val dataManager: DataManagerContract,
                 if (error.errorCode == 401) {
                     logout()
                 } else {
-                    if (apiError.errors != null) {
-                        for (counter in 0 until apiError.errors!!.size) {
-                            view!!.showToast(apiError.errors!![counter].error!!,
-                                    Toast.LENGTH_SHORT)
-                            AppLogger.e(apiError.errors!!.get(counter).error)
-                        }
-                    } else {
-                        view!!.showToast(apiError.message!!, Toast.LENGTH_SHORT)
+                    if (view != null){
+                        view?.showToast(apiError.message!!, Toast.LENGTH_SHORT)
                     }
                 }
             } else {
-                view!!.showToast(error.message!!, Toast.LENGTH_SHORT)
+                if (view != null){
+                    view?.showToast(error.message!!, Toast.LENGTH_SHORT)
+                }
+                else {
+                    view?.showToast("Ada Kesalahan", Toast.LENGTH_SHORT)
+                }
             }
         }
         else {
-            view?.showToast("Error Response Is Not JSON Type", Toast.LENGTH_SHORT)
+            if (view != null){
+                if (error.toString().contains("UnknownHost")){
+                    view?.showToast("Pastikan internet Anda stabil", Toast.LENGTH_SHORT)
+                }
+                else if (error.toString().contains("timed out")){
+                    view?.showToast("Pastikan internet Anda stabil", Toast.LENGTH_SHORT)
+                }
+                else if (error.errorBody != null) {
+                    if (error.errorBody.contains("html")) {
+                        view?.showToast("Kesalahan Server", Toast.LENGTH_SHORT)
+                    }
+                    else {
+                        view?.showToast("Ada Kesalahan", Toast.LENGTH_SHORT)
+                    }
+                }
+            }
         }
     }
 

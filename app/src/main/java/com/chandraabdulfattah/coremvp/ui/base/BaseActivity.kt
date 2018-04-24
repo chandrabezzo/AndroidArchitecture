@@ -16,10 +16,9 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.AppCompatTextView
 import android.view.View
+import butterknife.ButterKnife
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.chandraabdulfattah.coremvp.MvpApp
 import com.chandraabdulfattah.coremvp.R
 import com.chandraabdulfattah.coremvp.di.component.ActivityComponent
@@ -59,12 +58,12 @@ open class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Ca
         mContext = this
         dataReceived = intent.extras
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(default_toolbar)
 
         mActionBar = supportActionBar
 
-        if (toolbar != null){
-            toolbar.setNavigationOnClickListener(View.OnClickListener { view: View? ->
+        if (default_toolbar != null){
+            default_toolbar.setNavigationOnClickListener(View.OnClickListener { view: View? ->
                 onNavigationClick(view!!)
             })
         }
@@ -137,7 +136,7 @@ open class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Ca
     }
 
     override fun openActivityOnTokenExpire() {
-//        goToActivityClearAllStack(LoginActivity::class.java, null)
+
     }
 
     override fun onError(@StringRes resId: Int) {
@@ -242,16 +241,16 @@ open class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Ca
     }
 
     override fun showProgressDialog(message: String, cancelable: Boolean) {
-        mProgressDialog!!.setMessage(message)
-        mProgressDialog!!.setCancelable(cancelable)
-        if (!mProgressDialog!!.isShowing) {
-            mProgressDialog!!.show()
+        mProgressDialog.setMessage(message)
+        mProgressDialog.setCancelable(cancelable)
+        if (!mProgressDialog.isShowing) {
+            mProgressDialog.show()
         }
     }
 
     override fun dismissProgressDialog() {
-        if (mProgressDialog!!.isShowing) {
-            mProgressDialog!!.dismiss()
+        if (mProgressDialog.isShowing) {
+            mProgressDialog.dismiss()
         }
     }
 
@@ -292,10 +291,6 @@ open class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Ca
         }
     }
 
-    override fun onClickBack() {
-        finish()
-    }
-
     override fun showSnackBar(message: String, duration: Int) {
         val snackbar = Snackbar.make(findViewById(android.R.id.content),
                 message, duration)
@@ -309,5 +304,9 @@ open class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Ca
     override fun someError(tag : String) {
         AppLogger.e("$tag, " + getString(R.string.some_error))
         showSnackBar("$tag, " + getString(R.string.some_error), Snackbar.LENGTH_SHORT)
+    }
+
+    override fun onClickBack() {
+        finish()
     }
 }

@@ -11,6 +11,7 @@ import com.chandraabdulfattah.coremvp.ui.base.BaseHolder
 
 /**
  * Created by bezzo on 11/01/18.
+ * Change String to model you need convert to recycler view
  */
 class SampleRVAdapter(var list : ArrayList<String>,
                       var context : Context)
@@ -27,11 +28,11 @@ class SampleRVAdapter(var list : ArrayList<String>,
         return list.size
     }
 
-    override fun onBindViewHolder(holder: Item?, position: Int) {
-        holder?.model = list[position]
+    override fun onBindViewHolder(holder: Item, position: Int) {
+        holder.model = list[position]
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): Item {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Item {
         return Item(LayoutInflater.from(parent?.context)
                 .inflate(R.layout.item_rv_sample, parent, false))
     }

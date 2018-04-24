@@ -1,4 +1,4 @@
-package com.chandraabdulfattah.coremvp.data.model.network
+package com.chandraabdulfattah.coremvp.data.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

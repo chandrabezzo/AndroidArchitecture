@@ -54,8 +54,8 @@ open class BaseFragment : Fragment(), BaseFragmentView {
         dataReceived = arguments
         mContext = activity!!
 
-        if ((activity as BaseActivity).toolbar != null){
-            (activity as BaseActivity).toolbar.setNavigationOnClickListener(View.OnClickListener { view: View? ->
+        if ((activity as BaseActivity).default_toolbar != null){
+            (activity as BaseActivity).default_toolbar.setNavigationOnClickListener(View.OnClickListener { view: View? ->
                 onBackPressed()
             })
         }
@@ -102,7 +102,7 @@ open class BaseFragment : Fragment(), BaseFragmentView {
     }
 
     override fun openActivityOnTokenExpire() {
-        // when token expired
+        (activity as BaseActivity).openActivityOnTokenExpire()
     }
 
     override fun onError(@StringRes resId: Int) {
@@ -142,7 +142,9 @@ open class BaseFragment : Fragment(), BaseFragmentView {
     }
 
     override fun showToast(message: String, duration: Int) {
-        (activity as BaseActivity).showToast(message, duration)
+        if (activity != null){
+            (activity as BaseActivity).showToast(message, duration)
+        }
     }
 
     override fun goToActivity(c: Class<*>, bundle: Bundle?, isFinish: Boolean) {
@@ -210,7 +212,7 @@ open class BaseFragment : Fragment(), BaseFragmentView {
     }
 
     override fun onBackPressed() {
-        (activity as BaseActivity).onNavigationClick((activity as BaseActivity).toolbar)
+        (activity as BaseActivity).onNavigationClick((activity as BaseActivity).default_toolbar)
     }
 
     override fun someError(tag: String) {

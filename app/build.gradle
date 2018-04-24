@@ -2,15 +2,17 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+//apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "26.0.2"
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.chandraabdulfattah.coremvp"
         minSdkVersion 17
         targetSdkVersion 27
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -32,20 +34,26 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"http://192.168.1.13:3000/\"")
+            buildConfigField("String", "BASE_URL", "\"http://10.42.0.1:3000/\"")
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            buildConfigField("String", "BASE_URL", "\"http://192.168.1.13:3000/\"")
+            buildConfigField("String", "BASE_URL", "\"http://10.42.0.1:3000/\"")
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     // # Android Support Library
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
@@ -57,6 +65,7 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:$rootProject.ext.constraintLayoutVersion"
     implementation "com.android.support:support-v4:$rootProject.ext.supportLibraryVersion"
     kapt "android.arch.lifecycle:compiler:$rootProject.ext.androidArchVersion"
+    implementation 'com.android.support:multidex:1.0.3'
 
     // # Networking
     implementation "com.amitshekhar.android:rx2-android-networking:$rootProject.ext.rx2FastAndroidNetworking"
@@ -106,12 +115,18 @@ dependencies {
     kapt "com.jakewharton:butterknife-compiler:$rootProject.ext.butterKnifeVersion"
     implementation "com.prolificinteractive:material-calendarview:$rootProject.ext.materialCalendarViewVersion"
 
-
     //  Map
-    compile "com.google.android.gms:play-services-maps:$rootProject.ext.playServiceVersion"
-    compile "com.google.android.gms:play-services-location:$rootProject.ext.playServiceVersion"
+    implementation "com.google.android.gms:play-services-maps:$rootProject.ext.playServiceVersion"
+    implementation "com.google.android.gms:play-services-location:$rootProject.ext.playServiceVersion"
     implementation "com.google.android.gms:play-services-places:$rootProject.ext.playServiceVersion"
-    compile "com.google.maps.android:android-maps-utils:$rootProject.ext.mapsUtils"
+    implementation "com.google.maps.android:android-maps-utils:$rootProject.ext.mapsUtils"
+
+    // Firebase
+    implementation "com.google.firebase:firebase-crash:$rootProject.ext.playServiceVersion"
+    implementation "com.google.firebase:firebase-messaging:$rootProject.ext.playServiceVersion"
+    implementation 'com.firebase:firebase-client-android:2.5.2'
+    implementation "com.google.firebase:firebase-core:$rootProject.ext.playServiceVersion"
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
 
     // # UI Testing
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion"
@@ -119,13 +134,10 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
-
-    // RabbitMQ
-    compile files('libs/commons-cli-1.1.jar')
-    compile files('libs/commons-io-1.2.jar')
-    compile files('libs/rabbitmq-client.jar')
 }
 
 configurations.all {
     resolutionStrategy.force "com.android.support:support-annotations:$supportLibraryVersion"
 }
+
+//apply plugin: 'com.google.gms.google-services'

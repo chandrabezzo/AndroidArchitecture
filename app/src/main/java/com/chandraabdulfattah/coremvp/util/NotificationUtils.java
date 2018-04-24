@@ -9,12 +9,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.chandraabdulfattah.coremvp.BuildConfig;
-import com.chandraabdulfattah.coremvp.ui.features.main.MainActivity;
 import com.chandraabdulfattah.coremvp.R;
-import com.chandraabdulfattah.coremvp.data.model.network.NotificationData;
+import com.chandraabdulfattah.coremvp.ui.features.main.MainActivity;
+import com.chandraabdulfattah.coremvp.util.constanta.AppConstans;
 
 /**
  * Created by bezzo on 09/01/18.
@@ -34,28 +35,28 @@ public class NotificationUtils {
         return channel;
     }
 
-    public static void createNotification(String channelId, String channelName, int notifId, String title, NotificationData data, Context context){
-        String content = data.getAttribut();
+    public static void createNotification(int notifId, String title, String messageBody, Context context){
+        Bundle data = new Bundle();
+        data.putString(AppConstans.FCM_MESSAGE, messageBody);
 
         Intent intent = new Intent(context, MainActivity.class);
-//        Add data if you need
-//        Bundle bundle = new Bundle();
-//        intent.putExtras(bundle);
+        intent.putExtras(data);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         int requestID = (int) System.currentTimeMillis();
         int flags = PendingIntent.FLAG_CANCEL_CURRENT;
         PendingIntent pIntent = PendingIntent.getActivity(context, requestID, intent, flags);
 
-        Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher_round);
+        Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, channelId)
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, BuildConfig.APPLICATION_ID)
                 .setLargeIcon(largeIcon)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentIntent(pIntent)
                 .setAutoCancel(true)
-                .setTicker(content)
-                .setContentText(content)
+                .setTicker(messageBody)
+                .setContentText(messageBody)
                 .setDefaults(Notification.DEFAULT_ALL);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -70,8 +71,8 @@ public class NotificationUtils {
         // mId allows you to update the notification later on.
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            mNotificationManager.createNotificationChannel(NotificationUtils.configureChannel(channelId,
-                    channelName));
+            mNotificationManager.createNotificationChannel(NotificationUtils.configureChannel(BuildConfig.APPLICATION_ID,
+                    context.getString(R.string.app_name)));
         }
 
         mNotificationManager.notify(BuildConfig.APPLICATION_ID, notifId, mBuilder.build());

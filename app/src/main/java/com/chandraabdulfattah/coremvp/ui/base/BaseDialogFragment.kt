@@ -143,7 +143,9 @@ open class BaseDialogFragment : DialogFragment(), BaseDialogFragmentView {
     }
 
     override fun showToast(message: String, duration: Int) {
-        Toast.makeText(baseActivity, message, duration).show()
+        if (baseActivity != null){
+            Toast.makeText(baseActivity, message, duration).show()
+        }
     }
 
     override fun goToActivity(c: Class<*>, bundle: Bundle?, isFinish: Boolean) {

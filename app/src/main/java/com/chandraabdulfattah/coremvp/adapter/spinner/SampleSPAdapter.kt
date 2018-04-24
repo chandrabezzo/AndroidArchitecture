@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.item_sp_sample.view.*
 
 /**
  * Created by bezzo on 11/01/18.
+ * Change String to model you need convert to spinner
  */
 class SampleSPAdapter constructor(var context : Context, var list : ArrayList<String>)
     : BaseAdapter(), SpinnerContract<ArrayList<String>> {

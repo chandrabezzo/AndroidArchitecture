@@ -1,9 +1,7 @@
 package com.chandraabdulfattah.coremvp
 
 import android.app.Application
-import android.support.compat.BuildConfig
 import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.interceptors.HttpLoggingInterceptor
 import com.chandraabdulfattah.coremvp.di.component.ApplicationComponent
 import com.chandraabdulfattah.coremvp.di.component.DaggerApplicationComponent
 import com.chandraabdulfattah.coremvp.di.module.ApplicationModule
@@ -29,8 +27,5 @@ class MvpApp : Application() {
         Hawk.init(this).build()
 
         AndroidNetworking.initialize(applicationContext)
-        if (BuildConfig.DEBUG) {
-            AndroidNetworking.enableLogging(HttpLoggingInterceptor.Level.BODY)
-        }
     }
 }

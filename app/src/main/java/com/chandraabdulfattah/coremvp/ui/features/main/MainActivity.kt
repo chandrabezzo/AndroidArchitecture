@@ -3,8 +3,8 @@ package com.chandraabdulfattah.coremvp.ui.features.main
 import android.os.Bundle
 import android.widget.Toast
 import com.chandraabdulfattah.coremvp.R
-import com.chandraabdulfattah.coremvp.data.model.local.UserLokal
-import com.chandraabdulfattah.coremvp.data.model.network.User
+import com.chandraabdulfattah.coremvp.data.model.UserLokal
+import com.chandraabdulfattah.coremvp.data.model.User
 import com.chandraabdulfattah.coremvp.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject

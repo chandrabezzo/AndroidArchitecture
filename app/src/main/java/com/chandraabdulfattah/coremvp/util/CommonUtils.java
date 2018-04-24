@@ -2,6 +2,8 @@ package com.chandraabdulfattah.coremvp.util;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -18,11 +20,15 @@ import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.chandraabdulfattah.coremvp.R;
 import com.chandraabdulfattah.coremvp.util.constanta.AppConstans;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +37,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -125,20 +132,11 @@ public final class CommonUtils {
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.placeholder(R.mipmap.ic_launcher);
         requestOptions.error(R.mipmap.ic_launcher);
+        // uncomment if you need to clear cache
         requestOptions.skipMemoryCache(true);
         requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE);
 
         return requestOptions;
-    }
-
-    public static Locale getLocaleID(){
-        return new Locale("in", "ID");
-    }
-
-    public static String getPriceFormat(Locale locale, double price){
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
-
-        return currencyFormat.format(price);
     }
 
     public static void autoHideFab(FloatingActionButton fabView, int dy){
@@ -147,6 +145,27 @@ public final class CommonUtils {
         } else if (dy < 0 && fabView.getVisibility() != View.VISIBLE) {
             fabView.show();
         }
+    }
+
+    public static Locale getLocaleID(){
+        return new Locale("in", "ID");
+    }
+
+    public static String getPriceRp(Double price){
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("in","ID"));
+
+        return currencyFormat.format(price);
+    }
+
+
+    public static String getPriceFormat(Locale locale, double price){
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+
+        return currencyFormat.format(price);
+    }
+
+    public static String[] getSplittedString(String text, String regex){
+        return text.split(regex);
     }
 
     public static int getColor(Context context, int id){
@@ -184,5 +203,42 @@ public final class CommonUtils {
             configuration.setLocale(new Locale(language));
             res.updateConfiguration(configuration, dm);
         }
+    }
+
+    public static Boolean checkPlayServices(Activity activity){
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(activity);
+        if (resultCode != ConnectionResult.SUCCESS){
+            if (apiAvailability.isUserResolvableError(resultCode)){
+                apiAvailability.getErrorDialog(activity, resultCode, 0).show();
+            }
+            else {
+                AppLogger.e("Not support Google Play Service");
+                Toast.makeText(activity, "This device is not supported", Toast.LENGTH_SHORT).show();
+                activity.finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isServiceRunning(Activity activity, Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static <V> String convertObjectToJson(V object){
+        Gson gson =  new Gson();
+        return gson.toJson(object);
+    }
+
+    public static <V> String convertArrayObjectToJson(ArrayList<V> list){
+        Gson gson = new Gson();
+        return gson.toJson(list);
     }
 }

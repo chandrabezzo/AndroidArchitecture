@@ -5,6 +5,8 @@
     <string name="turn_on_gps">Please Turn On GPS</string>
     <string name="some_error">Some Error Occurred!</string>
     <string name="search">Search</string>
+    <string name="pengaturan_gps">Pengaturan GPS</string>
+    <string name="akurasi_tinggi_mode">Aktifkan GPS dan gunakan mode akurasi tinggi untuk mendapatkan lokasi.</string>
 
     <!-- Main -->
     <string name="beranda">Beranda</string>

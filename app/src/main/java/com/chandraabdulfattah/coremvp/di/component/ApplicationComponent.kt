@@ -6,7 +6,9 @@ import com.chandraabdulfattah.coremvp.MvpApp
 import com.chandraabdulfattah.coremvp.data.DataManagerContract
 import com.chandraabdulfattah.coremvp.di.ApplicationContext
 import com.chandraabdulfattah.coremvp.di.module.ApplicationModule
-import com.chandraabdulfattah.coremvp.service.SyncService
+import com.chandraabdulfattah.coremvp.service.MessagingInstanceIDService
+import com.chandraabdulfattah.coremvp.service.MessagingService
+import com.mybarber18.partner.service.UpdateLocationService
 import dagger.Component
 import javax.inject.Singleton
 
@@ -22,7 +24,11 @@ interface ApplicationComponent {
 
     fun inject(app: MvpApp)
 
-    fun inject(service: SyncService)
+    fun inject(messagingInstanceIDService: MessagingInstanceIDService)
+
+    fun inject(messagingService: MessagingService)
+
+    fun inject(updateLocationService: UpdateLocationService)
 
     @ApplicationContext
     fun context(): Context

@@ -1,10 +1,10 @@
-package com.chandraabdulfattah.coremvp.data.model.local
+package com.chandraabdulfattah.coremvp.data.model
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.support.annotation.NonNull
-import com.chandraabdulfattah.coremvp.data.local.sampleDB.SampleDBConstant
+import com.chandraabdulfattah.coremvp.util.constanta.AppConstans
 
 /**
  * Created by bezzo on 11/01/18.
@@ -14,17 +14,17 @@ import com.chandraabdulfattah.coremvp.data.local.sampleDB.SampleDBConstant
  * Add attribute non null values using @NonNull
  */
 
-@Entity(tableName = SampleDBConstant.USER)
+@Entity(tableName = AppConstans.USER)
 class UserLokal {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    @ColumnInfo(name = SampleDBConstant.ID)
+    @ColumnInfo(name = "id")
     var id : Long = 0
 
-    @ColumnInfo(name = SampleDBConstant.NAMA)
+    @ColumnInfo(name = "nama")
     var nama : String? = null
 
-    @ColumnInfo(name = SampleDBConstant.JABATAN)
+    @ColumnInfo(name = "jabatan")
     var jabatan : String? = null
 }

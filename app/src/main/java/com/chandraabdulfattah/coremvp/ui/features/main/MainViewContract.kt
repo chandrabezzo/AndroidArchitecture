@@ -1,7 +1,7 @@
 package com.chandraabdulfattah.coremvp.ui.features.main
 
-import com.chandraabdulfattah.coremvp.data.model.local.UserLokal
-import com.chandraabdulfattah.coremvp.data.model.network.User
+import com.chandraabdulfattah.coremvp.data.model.UserLokal
+import com.chandraabdulfattah.coremvp.data.model.User
 import com.chandraabdulfattah.coremvp.ui.base.BaseActivityView
 
 /**

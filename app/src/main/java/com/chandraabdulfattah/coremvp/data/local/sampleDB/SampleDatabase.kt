@@ -2,8 +2,8 @@ package com.chandraabdulfattah.coremvp.data.local.sampleDB
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
-import com.chandraabdulfattah.coremvp.data.local.sampleDB.daoTable.UserDao
-import com.chandraabdulfattah.coremvp.data.model.local.UserLokal
+import com.chandraabdulfattah.coremvp.data.local.sampleDB.dao.UserDao
+import com.chandraabdulfattah.coremvp.data.model.UserLokal
 import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.migration.Migration
 import android.arch.persistence.room.Room
@@ -14,8 +14,10 @@ import com.chandraabdulfattah.coremvp.util.constanta.AppConstans
 /**
  * Created by bezzo on 11/01/18.
  * Add more entities = arrayOf(UserLokal::class, SampleBTable::class)
+ * Add more converter must unique
  */
 @Database(entities = arrayOf(UserLokal::class), version = 1)
+//@TypeConverters(UserLokal::class, UserLokal::class)
 abstract class SampleDatabase : RoomDatabase() {
 
     abstract fun userDao() : UserDao

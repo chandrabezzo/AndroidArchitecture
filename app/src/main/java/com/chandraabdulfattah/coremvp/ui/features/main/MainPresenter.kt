@@ -1,10 +1,11 @@
 package com.chandraabdulfattah.coremvp.ui.features.main
 
 import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.OkHttpResponseAndJSONObjectRequestListener
 import com.chandraabdulfattah.coremvp.R
 import com.chandraabdulfattah.coremvp.data.DataManagerContract
-import com.chandraabdulfattah.coremvp.data.model.local.UserLokal
-import com.chandraabdulfattah.coremvp.data.model.network.User
+import com.chandraabdulfattah.coremvp.data.model.UserLokal
+import com.chandraabdulfattah.coremvp.data.model.User
 import com.chandraabdulfattah.coremvp.data.network.ApiEndPoint
 import com.chandraabdulfattah.coremvp.data.network.Response200
 import com.chandraabdulfattah.coremvp.ui.base.BasePresenter
@@ -33,7 +34,6 @@ constructor(dataManager: DataManagerContract, schedulerProvider: SchedulerProvid
         val exec = Executors.newSingleThreadExecutor()
         exec.execute {
             dataManager.localStorageHelper.sampleDatabase.userDao().deleteAll()
-            dataManager.localStorageHelper.sampleDatabase.userDao().clearSequence()
             dataManager.localStorageHelper.sampleDatabase.userDao()
                     .insert(user)
 
