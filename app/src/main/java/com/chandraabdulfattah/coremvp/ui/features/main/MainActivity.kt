@@ -17,7 +17,7 @@ class MainActivity : BaseActivity(), MainViewContract {
     override fun onInitializedView(savedInstanceState: Bundle?) {
         super.onInitializedView(savedInstanceState)
 
-        activityComponent?.inject(this)
+        activityComponent.inject(this)
         presenter.onAttach(this)
 
         setActionBarTitle(getString(R.string.beranda))
@@ -29,6 +29,11 @@ class MainActivity : BaseActivity(), MainViewContract {
 
     override fun setLayout(): Int {
         return R.layout.activity_main
+    }
+
+    override fun onDestroy() {
+        presenter.onDetach()
+        super.onDestroy()
     }
 
     override fun showUserApi(user: User) {

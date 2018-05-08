@@ -40,10 +40,6 @@ constructor(val dataManager: DataManagerContract,
         view = null
     }
 
-    fun checkViewAttached() {
-        if (!isViewAttached) throw MvpViewNotAttachedException()
-    }
-
     override fun handleApiError(error: ANError) {
         if (CommonUtils.isJSONValid(error.errorBody)){
             val apiError = gson.fromJson(error.errorBody,
@@ -69,18 +65,24 @@ constructor(val dataManager: DataManagerContract,
         else {
             if (view != null){
                 if (error.toString().contains("UnknownHost")){
+                    view?.showToast("Service tidak ditemukan", Toast.LENGTH_SHORT)
+                }
+                else if (error.toString().contains("timed out") || error.toString().contains("timeout")){
                     view?.showToast("Pastikan internet Anda stabil", Toast.LENGTH_SHORT)
                 }
-                else if (error.toString().contains("timed out")){
-                    view?.showToast("Pastikan internet Anda stabil", Toast.LENGTH_SHORT)
+                else if (error.toString().contains("java") || error.toString().contains("html")){
+                    view?.showToast("Kesalahan Server", Toast.LENGTH_SHORT)
                 }
                 else if (error.errorBody != null) {
-                    if (error.errorBody.contains("html")) {
+                    if (error.errorBody.contains("html") || error.errorBody.contains("java")) {
                         view?.showToast("Kesalahan Server", Toast.LENGTH_SHORT)
                     }
                     else {
                         view?.showToast("Ada Kesalahan", Toast.LENGTH_SHORT)
                     }
+                }
+                else {
+                    view?.showToast("Tidak terhubung ke server", Toast.LENGTH_SHORT)
                 }
             }
         }
@@ -89,8 +91,6 @@ constructor(val dataManager: DataManagerContract,
     override fun setUserAsLoggedOut() {
         dataManager
     }
-
-    class MvpViewNotAttachedException : RuntimeException("Please call Presenter.onAttach(BaseView) before" + " requesting data to the Presenter")
 
     override fun clearLog() {
         dataManager.setLogin(false)

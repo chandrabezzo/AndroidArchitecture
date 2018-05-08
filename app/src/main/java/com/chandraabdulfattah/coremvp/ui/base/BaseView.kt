@@ -8,8 +8,6 @@ import android.support.annotation.StringRes
  */
 interface BaseView {
 
-    fun setLayout() : Int
-
     fun isNetworkConnected() : Boolean
 
     fun showLoading()

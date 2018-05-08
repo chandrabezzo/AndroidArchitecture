@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.default_toolbar.*
  * Uncomment code below Butter Knife if you use ButterKnife
  */
 
-open class BaseFragment : Fragment(), BaseFragmentView {
+open abstract class BaseFragment : Fragment(), BaseFragmentView {
 
     var baseActivity: BaseActivity? = null
     var mProgressDialog: ProgressDialog? = null
@@ -35,9 +35,7 @@ open class BaseFragment : Fragment(), BaseFragmentView {
     val activityComponent: ActivityComponent
         get() = baseActivity?.activityComponent!!
 
-    protected open fun onViewInitialized(savedInstanceState: Bundle?) {
-
-    }
+    protected abstract fun onViewInitialized(savedInstanceState: Bundle?)
 
     protected fun showOptionMenu() {
         setHasOptionsMenu(true)
@@ -86,9 +84,7 @@ open class BaseFragment : Fragment(), BaseFragmentView {
         super.onDetach()
     }
 
-    override fun setLayout(): Int {
-        return 0
-    }
+    abstract fun setLayout() : Int
 
     override fun showLoading() {
         hideLoading()

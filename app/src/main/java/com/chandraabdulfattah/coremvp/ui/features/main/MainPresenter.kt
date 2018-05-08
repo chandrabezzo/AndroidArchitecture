@@ -20,6 +20,9 @@ import javax.inject.Inject
 
 /**
  * Created by bezzo on 24/01/18.
+ * if you use kotlin, when send to view you must add "?" for null check pointer
+ * but if you use java, when send to view you must add if(!isViewAttached) return;
+ * before you send data to view
  */
 
 class MainPresenter<V : MainViewContract> @Inject

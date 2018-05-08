@@ -34,7 +34,7 @@ import kotlinx.android.synthetic.main.default_toolbar.*
  * Uncomment code below Butter Knife if you use ButterKnife
  */
 
-open class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Callback {
+open abstract class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Callback {
 
     lateinit var mProgressDialog: ProgressDialog
     lateinit var activityComponent: ActivityComponent
@@ -92,9 +92,7 @@ open class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Ca
         super.onDestroy()
     }
 
-    protected open fun onInitializedView(savedInstanceState: Bundle?) {
-
-    }
+    protected abstract fun onInitializedView(savedInstanceState: Bundle?)
 
     fun onNavigationClick(view: View) {
         onClickBack()
@@ -120,9 +118,7 @@ open class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFragment.Ca
 
     }
 
-    override fun setLayout(): Int {
-        return 0
-    }
+    abstract fun setLayout() : Int
 
     override fun showLoading() {
         hideLoading()

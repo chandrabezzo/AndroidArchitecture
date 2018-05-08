@@ -20,7 +20,7 @@ import com.chandraabdulfattah.coremvp.util.AppLogger
  * Created by bezzo on 21/12/17.
  * Uncomment code below Butter Knife if you use ButterKnife
  */
-open class BaseDialogFragment : DialogFragment(), BaseDialogFragmentView {
+open abstract class BaseDialogFragment : DialogFragment(), BaseDialogFragmentView {
 
     var baseActivity: BaseActivity? = null
     var dataReceived: Bundle? = null
@@ -30,9 +30,7 @@ open class BaseDialogFragment : DialogFragment(), BaseDialogFragmentView {
     val activityComponent: ActivityComponent
         get() = baseActivity?.activityComponent!!
 
-    protected open fun onViewInitialized(savedInstanceState: Bundle?) {
-
-    }
+    protected abstract fun onViewInitialized(savedInstanceState: Bundle?)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(setLayout(), container, false)
@@ -85,9 +83,7 @@ open class BaseDialogFragment : DialogFragment(), BaseDialogFragmentView {
         baseActivity!!.onFragmentDetached(tag)
     }
 
-    override fun setLayout(): Int {
-        return 0
-    }
+    abstract fun setLayout() : Int
 
     override fun showLoading() {
         baseActivity!!.hideLoading()
