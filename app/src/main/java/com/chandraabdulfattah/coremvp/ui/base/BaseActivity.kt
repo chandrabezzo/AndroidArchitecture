@@ -26,6 +26,7 @@ import com.chandraabdulfattah.coremvp.di.component.DaggerActivityComponent
 import com.chandraabdulfattah.coremvp.di.module.ActivityModule
 import com.chandraabdulfattah.coremvp.util.AppLogger
 import com.chandraabdulfattah.coremvp.util.CommonUtils
+import com.chandraabdulfattah.coremvp.util.LocaleHelper
 import com.chandraabdulfattah.coremvp.util.NetworkUtils
 import kotlinx.android.synthetic.main.default_toolbar.*
 
@@ -73,6 +74,10 @@ open abstract class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFr
         }
 
         onInitializedView(savedInstanceState)
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase))
     }
 
     override fun setContentView(layoutResID: Int) {

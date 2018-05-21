@@ -194,7 +194,7 @@ public final class CommonUtils {
 
     public static void changeLanguage(Context context, String language){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            LocaleHelper.onAttach(context, language);
+            LocaleHelper.setLocale(context, language);
         }
         else {
             Resources res = context.getResources();

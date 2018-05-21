@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.LocaleList;
 import android.preference.PreferenceManager;
 
 import java.util.Locale;
@@ -34,11 +35,14 @@ public class LocaleHelper {
     public static Context setLocale(Context context, String language) {
         persist(context, language);
 
+        Locale locale = new Locale(language);
+        locale.setDefault(locale);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return updateResources(context, language);
+            return updateResources(context, locale);
         }
 
-        return updateResourcesLegacy(context, language);
+        return updateResourcesLegacy(context, locale);
     }
 
     private static String getPersistedData(Context context, String defaultLanguage) {
@@ -55,22 +59,20 @@ public class LocaleHelper {
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    private static Context updateResources(Context context, String language) {
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-
+    private static Context updateResources(Context context, Locale locale) {
         Configuration configuration = context.getResources().getConfiguration();
         configuration.setLocale(locale);
         configuration.setLayoutDirection(locale);
+
+        LocaleList localeList = new LocaleList(locale);
+        LocaleList.setDefault(localeList);
+        configuration.setLocales(localeList);
 
         return context.createConfigurationContext(configuration);
     }
 
     @SuppressWarnings("deprecation")
-    private static Context updateResourcesLegacy(Context context, String language) {
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-
+    private static Context updateResourcesLegacy(Context context, Locale locale) {
         Resources resources = context.getResources();
 
         Configuration configuration = resources.getConfiguration();
