@@ -104,7 +104,7 @@ constructor(val dataManager: DataManagerContract,
         clearLog()
 
         view?.showToast("You Have No Access", Toast.LENGTH_SHORT)
-        view!!.openActivityOnTokenExpire()
+        view?.openActivityOnTokenExpire()
     }
 
     companion object {

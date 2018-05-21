@@ -4,9 +4,8 @@ import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.chandraabdulfattah.coremvp.di.PerActivity
+import com.chandraabdulfattah.coremvp.ui.features.main.MainContracts
 import com.chandraabdulfattah.coremvp.ui.features.main.MainPresenter
-import com.chandraabdulfattah.coremvp.ui.features.main.MainPresenterContract
-import com.chandraabdulfattah.coremvp.ui.features.main.MainViewContract
 import com.chandraabdulfattah.coremvp.util.rx.SchedulerProvider
 import com.chandraabdulfattah.coremvp.util.rx.SchedulerProviderContract
 import com.google.gson.Gson
@@ -54,7 +53,8 @@ class ActivityModule(private val mActivity: AppCompatActivity) {
 
     @Provides
     @PerActivity
-    fun provideMainPresenter(presenter: MainPresenter<MainViewContract>): MainPresenterContract<MainViewContract> {
+    fun provideMainPresenter(presenter: MainPresenter<MainContracts.View>):
+            MainContracts.Presenter<MainContracts.View> {
         return presenter
     }
 }

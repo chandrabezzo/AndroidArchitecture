@@ -23,9 +23,9 @@ import javax.inject.Inject
  * before you send data to view
  */
 
-class MainPresenter<V : MainViewContract> @Inject
+class MainPresenter<V : MainContracts.View> @Inject
 constructor(dataManager: DataManagerContract, schedulerProvider: SchedulerProviderContract, compositeDisposable: CompositeDisposable)
-    : BasePresenter<V>(dataManager, schedulerProvider, compositeDisposable), MainPresenterContract<V> {
+    : BasePresenter<V>(dataManager, schedulerProvider, compositeDisposable), MainContracts.Presenter<V> {
 
     override fun getUserLokal() {
         var user = UserLokal()

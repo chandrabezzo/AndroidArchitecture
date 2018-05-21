@@ -9,10 +9,10 @@ import com.chandraabdulfattah.coremvp.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), MainViewContract {
+class MainActivity : BaseActivity(), MainContracts.View {
 
     @Inject
-    lateinit var presenter : MainPresenter<MainViewContract>
+    lateinit var presenter : MainPresenter<MainContracts.View>
 
     override fun onInitializedView(savedInstanceState: Bundle?) {
         activityComponent.inject(this)
