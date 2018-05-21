@@ -1,18 +1,14 @@
 package com.chandraabdulfattah.coremvp.data
 
 import android.content.Context
-
 import com.chandraabdulfattah.coremvp.data.local.LocalStorageHelper
 import com.chandraabdulfattah.coremvp.data.local.LocalStorageHelperContract
 import com.chandraabdulfattah.coremvp.data.network.ApiHelperContract
 import com.chandraabdulfattah.coremvp.data.session.SessionHelperContract
 import com.chandraabdulfattah.coremvp.di.ApplicationContext
-import com.google.gson.JsonObject
 import com.rx2androidnetworking.Rx2ANRequest
 import org.json.JSONObject
-
 import java.io.File
-
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -39,64 +35,16 @@ constructor(@ApplicationContext private val mContext: Context,
         return mApiHelper.get(endpoint, params, paths, headers)
     }
 
-    override fun post(endpoint: String, headers: Map<String, String>?,
-                      paths: Map<String, String>?, body: Map<String, String>?): Rx2ANRequest {
-        return mApiHelper.post(endpoint, headers, paths, body)
+    override fun post(endpoint: String, params: Map<String, String>?, paths: Map<String, String>?, headers: Map<String, String>?, body: Any?): Rx2ANRequest {
+        return mApiHelper.post(endpoint, params, paths, headers, body)
     }
 
-    override fun post(endpoint: String, headers: Map<String, String>?,
-                      paths: Map<String, String>?, body: Any?): Rx2ANRequest {
-        return mApiHelper.post(endpoint, headers, paths, body)
+    override fun put(endpoint: String, params: Map<String, String>?, paths: Map<String, String>?, headers: Map<String, String>?, body: Any?): Rx2ANRequest {
+        return mApiHelper.put(endpoint, params, paths, headers, body)
     }
 
-    override fun post(endpoint: String, headers: Map<String, String>?,
-                      paths: Map<String, String>?, body: JSONObject?): Rx2ANRequest {
-        return mApiHelper.post(endpoint, headers, paths, body)
-    }
-
-    override fun post(endpoint: String, headers: Map<String, String>?,
-                      paths: Map<String, String>?, file: File?): Rx2ANRequest {
-        return mApiHelper.post(endpoint, headers, paths, file)
-    }
-
-    override fun put(endpoint: String, headers: Map<String, String>?,
-                     paths: Map<String, String>?, body: Map<String, String>?): Rx2ANRequest {
-        return mApiHelper.put(endpoint, headers, paths, body)
-    }
-
-    override fun put(endpoint: String, headers: Map<String, String>?,
-                     paths: Map<String, String>?, body: Any?): Rx2ANRequest {
-        return mApiHelper.put(endpoint, headers, paths, body)
-    }
-
-    override fun put(endpoint: String, headers: Map<String, String>?, paths: Map<String, String>?,
-                     body: JSONObject?): Rx2ANRequest {
-        return mApiHelper.put(endpoint, headers, paths, body)
-    }
-
-    override fun put(endpoint: String, headers: Map<String, String>?,
-                     paths: Map<String, String>?, file: File?): Rx2ANRequest {
-        return mApiHelper.put(endpoint, headers, paths, file)
-    }
-
-    override fun delete(endpoint: String, headers: Map<String, String>?,
-                        paths: Map<String, String>?): Rx2ANRequest {
-        return mApiHelper.delete(endpoint, headers, paths)
-    }
-
-    override fun delete(endpoint: String, headers: Map<String, String>?,
-                        paths: Map<String, String>?, body: Map<String, String>?): Rx2ANRequest {
-        return mApiHelper.delete(endpoint, headers, paths, body)
-    }
-
-    override fun delete(endpoint: String, headers: Map<String, String>?,
-                        paths: Map<String, String>?, body: Any?): Rx2ANRequest {
-        return mApiHelper.delete(endpoint, headers, paths, body)
-    }
-
-    override fun delete(endpoint: String, headers: Map<String, String>?,
-                        paths: Map<String, String>?, body: JSONObject?): Rx2ANRequest {
-        return mApiHelper.delete(endpoint, headers, paths, body)
+    override fun delete(endpoint: String, params: Map<String, String>?, paths: Map<String, String>?, headers: Map<String, String>?, body: Any?): Rx2ANRequest {
+        return mApiHelper.delete(endpoint, params, paths, headers, body)
     }
 
     override fun download(endpoint: String, savedLocation: String, fileName: String,

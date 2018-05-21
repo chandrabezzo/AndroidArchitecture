@@ -111,8 +111,10 @@ constructor(val dataManager: DataManagerContract,
         private val TAG = "BasePresenter"
     }
 
-    override fun logging(message: String) {
-        AppLogger.i(message)
-        view?.showToast(message, Toast.LENGTH_SHORT)
+    override fun logging(message: String?) {
+        if (message != null){
+            AppLogger.i(message)
+            view?.showToast(message, Toast.LENGTH_SHORT)
+        }
     }
 }

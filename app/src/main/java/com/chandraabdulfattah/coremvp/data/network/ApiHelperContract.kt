@@ -12,41 +12,14 @@ interface ApiHelperContract {
     fun get(endpoint: String, params: Map<String, String>?,
             paths: Map<String, String>?, headers: Map<String, String>?): Rx2ANRequest
 
-    fun post(endpoint: String, headers: Map<String, String>?,
-             paths: Map<String, String>?, body: Map<String, String>?): Rx2ANRequest
+    fun post(endpoint: String, params : Map<String, String>?, paths: Map<String, String>?,
+             headers: Map<String, String>?, body: Any?): Rx2ANRequest
 
-    fun post(endpoint: String, headers: Map<String, String>?,
-             paths: Map<String, String>?, body: JSONObject?): Rx2ANRequest
+    fun put(endpoint: String, params : Map<String, String>?, paths: Map<String, String>?,
+            headers: Map<String, String>?, body: Any?): Rx2ANRequest
 
-    fun post(endpoint: String, headers: Map<String, String>?,
-             paths: Map<String, String>?, body: Any?): Rx2ANRequest
-
-    fun post(endpoint: String, headers: Map<String, String>?,
-             paths: Map<String, String>?, file: File?): Rx2ANRequest
-
-    fun put(endpoint: String, headers: Map<String, String>?,
-            paths: Map<String, String>?, body: Map<String, String>?): Rx2ANRequest
-
-    fun put(endpoint: String, headers: Map<String, String>?,
-            paths: Map<String, String>?, body: Any?): Rx2ANRequest
-
-    fun put(endpoint: String, headers: Map<String, String>?,
-            paths: Map<String, String>?, body: JSONObject?): Rx2ANRequest
-
-    fun put(endpoint: String, headers: Map<String, String>?,
-            paths: Map<String, String>?, file: File?): Rx2ANRequest
-
-    fun delete(endpoint: String, headers: Map<String, String>?,
-               paths: Map<String, String>?): Rx2ANRequest
-
-    fun delete(endpoint: String, headers: Map<String, String>?,
-               paths: Map<String, String>?, body: Map<String, String>?): Rx2ANRequest
-
-    fun delete(endpoint: String, headers: Map<String, String>?,
-               paths: Map<String, String>?, body: Any?): Rx2ANRequest
-
-    fun delete(endpoint: String, headers: Map<String, String>?,
-               paths: Map<String, String>?, body: JSONObject?): Rx2ANRequest
+    fun delete(endpoint: String, params : Map<String, String>?, paths: Map<String, String>?,
+               headers: Map<String, String>?, body: Any?): Rx2ANRequest
 
     fun download(endpoint: String, savedLocation: String, fileName: String,
                  params: Map<String, String>?, paths: Map<String, String>?,

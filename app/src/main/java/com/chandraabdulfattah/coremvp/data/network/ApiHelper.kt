@@ -59,61 +59,25 @@ constructor() : ApiHelperContract {
         return getRequest.build()
     }
 
-    override fun post(endpoint: String, headers: Map<String, String>?,
-                      paths: Map<String, String>?, body: Map<String, String>?): Rx2ANRequest {
+    override fun post(endpoint: String, params : Map<String, String>?, paths: Map<String, String>?,
+                      headers: Map<String, String>?, body: Any?): Rx2ANRequest {
 
         val postRequest = Rx2AndroidNetworking.post(endpoint)
+        AppLogger.i("endpoint : $endpoint")
 
-        if (headers != null) {
-            postRequest.addHeaders(headers)
-        }
-
-        if (paths != null) {
-            postRequest.addPathParameter(paths)
-        }
-
-        postRequest.addBodyParameter(body)
-
-        postRequest.setPriority(Priority.MEDIUM)
-        postRequest.setOkHttpClient(okHttpClient)
-
-        return postRequest.build()
-    }
-
-    override fun post(endpoint: String, headers: Map<String, String>?,
-                      paths: Map<String, String>?, body: JSONObject?): Rx2ANRequest {
-
-        val postRequest = Rx2AndroidNetworking.post(endpoint)
-
-        if (headers != null) {
-            postRequest.addHeaders(headers)
-        }
-
-        if (paths != null) {
-            postRequest.addPathParameter(paths)
-        }
-
-        postRequest.addJSONObjectBody(body)
-        postRequest.setPriority(Priority.MEDIUM)
-        postRequest.setOkHttpClient(okHttpClient)
-
-        return postRequest.build()
-    }
-
-    override fun post(endpoint: String, headers: Map<String, String>?,
-                      paths: Map<String, String>?, body: Any?): Rx2ANRequest {
-
-        val postRequest = Rx2AndroidNetworking.post(endpoint)
-        AppLogger.i("endpoint : " + endpoint)
-
-        if (headers != null) {
-            postRequest.addHeaders(headers)
-            AppLogger.i("headers : " + headers.toString())
+        if (params != null){
+            postRequest.addQueryParameter(params)
+            AppLogger.i("params : ${params.toString()}")
         }
 
         if (paths != null) {
             postRequest.addPathParameter(paths)
             AppLogger.i("paths : " + paths.toString())
+        }
+
+        if (headers != null) {
+            postRequest.addHeaders(headers)
+            AppLogger.i("headers : ${headers.toString()}")
         }
 
         postRequest.addApplicationJsonBody(body)
@@ -123,37 +87,24 @@ constructor() : ApiHelperContract {
         return postRequest.build()
     }
 
-    override fun post(endpoint: String, headers: Map<String, String>?,
-                      paths: Map<String, String>?, file: File?): Rx2ANRequest {
-
-        val postRequest = Rx2AndroidNetworking.post(endpoint)
-
-        if (headers != null) {
-            postRequest.addHeaders(headers)
-        }
-
-        if (paths != null) {
-            postRequest.addPathParameter(paths)
-        }
-
-        postRequest.addFileBody(file)
-        postRequest.setPriority(Priority.HIGH)
-        postRequest.setOkHttpClient(okHttpClient)
-
-        return postRequest.build()
-    }
-
-    override fun put(endpoint: String, headers: Map<String, String>?,
-                     paths: Map<String, String>?, body: Map<String, String>?): Rx2ANRequest {
+    override fun put(endpoint: String, params : Map<String, String>?, paths: Map<String, String>?,
+                     headers: Map<String, String>?, body: Any?): Rx2ANRequest {
 
         val putRequest = Rx2AndroidNetworking.put(endpoint)
 
+        if (params != null){
+            putRequest.addQueryParameter(params)
+            AppLogger.i("Params : ${params.toString()}")
+        }
+
         if (headers != null) {
             putRequest.addHeaders(headers)
+            AppLogger.i("Headers : ${headers.toString()}")
         }
 
         if (paths != null) {
             putRequest.addPathParameter(paths)
+            AppLogger.i("Paths : ${paths.toString()}")
         }
 
         putRequest.addBodyParameter(body)
@@ -163,139 +114,27 @@ constructor() : ApiHelperContract {
         return putRequest.build()
     }
 
-    override fun put(endpoint: String, headers: Map<String, String>?,
-                     paths: Map<String, String>?, body: Any?): Rx2ANRequest {
-
-        val putRequest = Rx2AndroidNetworking.put(endpoint)
-
-        if (headers != null) {
-            putRequest.addHeaders(headers)
-        }
-
-        if (paths != null) {
-            putRequest.addPathParameter(paths)
-        }
-
-        putRequest.addBodyParameter(body)
-        putRequest.setPriority(Priority.MEDIUM)
-        putRequest.setOkHttpClient(okHttpClient)
-
-        return putRequest.build()
-    }
-
-    override fun put(endpoint: String, headers: Map<String, String>?,
-                     paths: Map<String, String>?, body: JSONObject?): Rx2ANRequest {
-
-        val putRequest = Rx2AndroidNetworking.put(endpoint)
-
-        if (headers != null) {
-            putRequest.addHeaders(headers)
-        }
-
-        if (paths != null) {
-            putRequest.addPathParameter(paths)
-        }
-
-        putRequest.addBodyParameter(body)
-        putRequest.setPriority(Priority.MEDIUM)
-        putRequest.setOkHttpClient(okHttpClient)
-
-        return putRequest.build()
-    }
-
-    override fun put(endpoint: String, headers: Map<String, String>?,
-                     paths: Map<String, String>?, file: File?): Rx2ANRequest {
-
-        val putRequest = Rx2AndroidNetworking.put(endpoint)
-
-        if (headers != null) {
-            putRequest.addHeaders(headers)
-        }
-
-        if (paths != null) {
-            putRequest.addPathParameter(paths)
-        }
-
-        putRequest.addFileBody(file)
-        putRequest.setPriority(Priority.HIGH)
-        putRequest.setOkHttpClient(okHttpClient)
-
-        return putRequest.build()
-    }
-
-    override fun delete(endpoint: String, headers: Map<String, String>?,
-                        paths: Map<String, String>?): Rx2ANRequest {
+    override fun delete(endpoint: String, params: Map<String, String>?, paths: Map<String, String>?,
+                        headers: Map<String, String>?, body: Any?): Rx2ANRequest {
 
         val deleteRequest = Rx2AndroidNetworking.delete(endpoint)
 
+        if (params != null){
+            deleteRequest.addQueryParameter(params)
+            AppLogger.i("Params : ${params.toString()}")
+        }
+
         if (headers != null) {
             deleteRequest.addHeaders(headers)
+            AppLogger.i("Headers : ${headers.toString()}")
         }
 
         if (paths != null) {
             deleteRequest.addPathParameter(paths)
-        }
-
-        deleteRequest.setPriority(Priority.MEDIUM)
-        deleteRequest.setOkHttpClient(okHttpClient)
-
-        return deleteRequest.build()
-    }
-
-    override fun delete(endpoint: String, headers: Map<String, String>?,
-                        paths: Map<String, String>?, body: Map<String, String>?): Rx2ANRequest {
-
-        val deleteRequest = Rx2AndroidNetworking.delete(endpoint)
-
-        if (headers != null) {
-            deleteRequest.addHeaders(headers)
-        }
-
-        if (paths != null) {
-            deleteRequest.addPathParameter(paths)
+            AppLogger.i("Paths : ${paths.toString()}")
         }
 
         deleteRequest.addBodyParameter(body)
-        deleteRequest.setPriority(Priority.MEDIUM)
-        deleteRequest.setOkHttpClient(okHttpClient)
-
-        return deleteRequest.build()
-    }
-
-    override fun delete(endpoint: String, headers: Map<String, String>?,
-                        paths: Map<String, String>?, body: Any?): Rx2ANRequest {
-
-        val deleteRequest = Rx2AndroidNetworking.delete(endpoint)
-
-        if (headers != null) {
-            deleteRequest.addHeaders(headers)
-        }
-
-        if (paths != null) {
-            deleteRequest.addPathParameter(paths)
-        }
-
-        deleteRequest.addBodyParameter(body)
-        deleteRequest.setPriority(Priority.MEDIUM)
-        deleteRequest.setOkHttpClient(okHttpClient)
-
-        return deleteRequest.build()
-    }
-
-    override fun delete(endpoint: String, headers: Map<String, String>?,
-                        paths: Map<String, String>?, body: JSONObject?): Rx2ANRequest {
-
-        val deleteRequest = Rx2AndroidNetworking.delete(endpoint)
-
-        if (headers != null) {
-            deleteRequest.addHeaders(headers)
-        }
-
-        if (paths != null) {
-            deleteRequest.addHeaders(paths)
-        }
-
-        deleteRequest.addJSONObjectBody(body)
         deleteRequest.setPriority(Priority.MEDIUM)
         deleteRequest.setOkHttpClient(okHttpClient)
 

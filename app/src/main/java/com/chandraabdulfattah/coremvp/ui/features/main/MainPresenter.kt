@@ -1,19 +1,17 @@
 package com.chandraabdulfattah.coremvp.ui.features.main
 
 import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.OkHttpResponseAndJSONObjectRequestListener
 import com.chandraabdulfattah.coremvp.R
 import com.chandraabdulfattah.coremvp.data.DataManagerContract
 import com.chandraabdulfattah.coremvp.data.model.UserLokal
 import com.chandraabdulfattah.coremvp.data.model.User
 import com.chandraabdulfattah.coremvp.data.network.ApiEndPoint
-import com.chandraabdulfattah.coremvp.data.network.Response200
+import com.chandraabdulfattah.coremvp.data.network.ResponseHandler
 import com.chandraabdulfattah.coremvp.ui.base.BasePresenter
 import com.chandraabdulfattah.coremvp.util.constanta.ApiConstans
 import com.chandraabdulfattah.coremvp.util.rx.SchedulerProviderContract
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
-import okhttp3.Response
 import org.json.JSONObject
 import java.util.concurrent.Executors
 import javax.inject.Inject
@@ -48,12 +46,7 @@ constructor(dataManager: DataManagerContract, schedulerProvider: SchedulerProvid
                 .subscribe({
                     view?.showUserLokal(it)
                 }, {
-                    if (it is ANError){
-                        handleApiError(it)
-                    }
-                    else {
-                        logging(view?.getContext()!!.getString(R.string.some_error))
-                    }
+                    logging(it.toString())
                 }))
     }
 
@@ -62,7 +55,7 @@ constructor(dataManager: DataManagerContract, schedulerProvider: SchedulerProvid
                 .jsonObjectObservable
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-                .subscribe(object : Response200<JSONObject>() {
+                .subscribe(object : ResponseHandler<JSONObject>(200) {
                     override fun onSuccess(model: JSONObject) {
                         var user = gson.fromJson<User>(model.optString(ApiConstans.DATA), User::class.java)
 
@@ -79,9 +72,6 @@ constructor(dataManager: DataManagerContract, schedulerProvider: SchedulerProvid
                 }, Consumer {
                     if (it is ANError){
                         handleApiError(it)
-                    }
-                    else {
-                        logging(view?.getContext()!!.getString(R.string.some_error))
                     }
                 }))
     }

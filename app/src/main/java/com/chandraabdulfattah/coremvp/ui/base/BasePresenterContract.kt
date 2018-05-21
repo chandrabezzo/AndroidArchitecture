@@ -20,5 +20,5 @@ interface BasePresenterContract<in V : BaseView> {
 
     fun clearLog()
 
-    fun logging(message : String)
+    fun logging(message : String?)
 }

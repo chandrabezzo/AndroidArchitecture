@@ -15,8 +15,6 @@ class MainActivity : BaseActivity(), MainViewContract {
     lateinit var presenter : MainPresenter<MainViewContract>
 
     override fun onInitializedView(savedInstanceState: Bundle?) {
-        super.onInitializedView(savedInstanceState)
-
         activityComponent.inject(this)
         presenter.onAttach(this)
 

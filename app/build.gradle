@@ -8,6 +8,8 @@ android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
 
+    flavorDimensions "default"
+
     defaultConfig {
         applicationId "com.chandraabdulfattah.coremvp"
         minSdkVersion 17
@@ -34,12 +36,22 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"http://10.42.0.1:3000/\"")
+
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 
+    productFlavors {
+        development {
+            resValue "string", "app_name", "CoreMVP Dev"
+            buildConfigField("String", "BASE_URL", "\"http://192.168.0.227:3000/\"")
+        }
+
+        production {
+            resValue "string", "app_name", "CoreMVP"
             buildConfigField("String", "BASE_URL", "\"http://10.42.0.1:3000/\"")
         }
     }
