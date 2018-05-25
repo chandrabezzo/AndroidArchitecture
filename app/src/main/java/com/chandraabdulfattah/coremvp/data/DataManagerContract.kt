@@ -1,6 +1,5 @@
 package com.chandraabdulfattah.coremvp.data
 
-import com.chandraabdulfattah.coremvp.data.local.LocalStorageHelper
 import com.chandraabdulfattah.coremvp.data.local.LocalStorageHelperContract
 import com.chandraabdulfattah.coremvp.data.network.ApiHelperContract
 import com.chandraabdulfattah.coremvp.data.session.SessionHelperContract
@@ -10,5 +9,5 @@ import com.chandraabdulfattah.coremvp.data.session.SessionHelperContract
  */
 
 interface DataManagerContract : LocalStorageHelperContract, ApiHelperContract, SessionHelperContract {
-    val localStorageHelper: LocalStorageHelper
+
 }

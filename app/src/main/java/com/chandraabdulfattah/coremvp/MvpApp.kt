@@ -4,12 +4,16 @@ import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
 import com.androidnetworking.AndroidNetworking
+import com.chandraabdulfattah.coremvp.data.local.RealmMigrations
 import com.chandraabdulfattah.coremvp.di.component.ApplicationComponent
 import com.chandraabdulfattah.coremvp.di.component.DaggerApplicationComponent
 import com.chandraabdulfattah.coremvp.di.module.ApplicationModule
 import com.chandraabdulfattah.coremvp.util.AppLogger
 import com.chandraabdulfattah.coremvp.util.LocaleHelper
+import com.chandraabdulfattah.coremvp.util.constanta.AppConstans
 import com.orhanobut.hawk.Hawk
+import io.realm.Realm
+import io.realm.RealmConfiguration
 
 /**
  * Created by bezzo on 11/01/18.
@@ -36,5 +40,18 @@ class MvpApp : Application() {
         Hawk.init(this).build()
 
         AndroidNetworking.initialize(applicationContext)
+
+        Realm.init(this)
+        var configRealm = RealmConfiguration.Builder()
+                .name(AppConstans.DB_NAME)
+                .migration(RealmMigrations())
+                .deleteRealmIfMigrationNeeded()
+                .build()
+        Realm.setDefaultConfiguration(configRealm)
+    }
+
+    override fun onTerminate() {
+        Realm.getDefaultInstance().close()
+        super.onTerminate()
     }
 }

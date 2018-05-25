@@ -10,6 +10,6 @@
 
     <!-- Main -->
     <string name="beranda">Beranda</string>
-    <string name="lokal">Lokal</string>
-    <string name="api">Api</string>
+    <string name="data">Data</string>
+    <string name="list">List</string>
 </resources>

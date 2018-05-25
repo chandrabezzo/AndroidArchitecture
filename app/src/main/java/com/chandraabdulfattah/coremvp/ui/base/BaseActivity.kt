@@ -223,7 +223,7 @@ open abstract class BaseActivity : AppCompatActivity(), BaseActivityView, BaseFr
 
         try {
             fragment = classFragment.newInstance() as Fragment
-        } catch (e: InstantiationException) {
+        } catch (e: Fragment.InstantiationException) {
             e.printStackTrace()
         } catch (e: IllegalAccessException) {
             e.printStackTrace()

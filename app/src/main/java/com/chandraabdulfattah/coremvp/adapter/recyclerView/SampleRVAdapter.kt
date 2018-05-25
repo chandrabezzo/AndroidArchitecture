@@ -6,14 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.chandraabdulfattah.coremvp.R
-import com.chandraabdulfattah.coremvp.listener.OnItemClickListener
+import com.chandraabdulfattah.coremvp.data.model.Jabatan
 import com.chandraabdulfattah.coremvp.ui.base.BaseHolder
+import kotlinx.android.synthetic.main.item_rv_default.view.*
 
 /**
  * Created by bezzo on 11/01/18.
  * Change String to model you need convert to recycler view
  */
-class SampleRVAdapter(var list : ArrayList<String>,
+class SampleRVAdapter(var list : ArrayList<Jabatan>,
                       var context : Context)
     : RecyclerView.Adapter<SampleRVAdapter.Item>() {
 
@@ -33,12 +34,12 @@ class SampleRVAdapter(var list : ArrayList<String>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Item {
-        return Item(LayoutInflater.from(parent?.context)
-                .inflate(R.layout.item_rv_sample, parent, false))
+        return Item(LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_rv_default, parent, false))
     }
 
 
-    inner class Item(itemView : View) : BaseHolder<String>(itemView){
+    inner class Item(itemView : View) : BaseHolder<Jabatan>(itemView){
 
         init {
             // add listener if you need
@@ -51,8 +52,8 @@ class SampleRVAdapter(var list : ArrayList<String>,
 //            }
         }
 
-        override fun setContent(model: String) {
-            // set content item
+        override fun setContent(model: Jabatan) {
+            itemView.tv_item_rv.text = model.nama
         }
     }
 }

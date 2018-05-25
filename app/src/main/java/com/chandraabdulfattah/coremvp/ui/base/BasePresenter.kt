@@ -37,6 +37,7 @@ constructor(val dataManager: DataManagerContract,
 
     override fun onDetach() {
         compositeDisposable.dispose()
+        dataManager.localClose()
         view = null
     }
 

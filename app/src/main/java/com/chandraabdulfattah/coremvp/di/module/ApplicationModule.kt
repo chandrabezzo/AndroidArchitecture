@@ -47,8 +47,8 @@ class ApplicationModule(private val mApplication: Application) {
 
     @Provides
     @Singleton
-    fun provideLocalStorageHelper(appLocalStorage: LocalStorageHelper): LocalStorageHelperContract {
-        return appLocalStorage
+    fun provideLocalStorageHelper(localStorageHelper : LocalStorageHelper) : LocalStorageHelperContract {
+        return localStorageHelper
     }
 
     @Provides

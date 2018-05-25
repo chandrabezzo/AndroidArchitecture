@@ -13,22 +13,48 @@
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/api"
+        android:text="@string/data"
+        android:textColor="@color/black_effective"
         android:textStyle="bold"/>
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/tv_api"
+        android:id="@+id/tv_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/lokal"
-        android:textStyle="bold"/>
+        android:text="@string/list"
+        android:textStyle="bold"
+        android:textColor="@color/black_effective"/>
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/tv_lokal"
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/sp_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_rv_default"/>
+
+            <ProgressBar
+                android:id="@+id/pb_loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

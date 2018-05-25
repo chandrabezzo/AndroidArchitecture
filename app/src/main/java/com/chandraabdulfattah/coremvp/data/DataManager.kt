@@ -1,14 +1,16 @@
 package com.chandraabdulfattah.coremvp.data
 
 import android.content.Context
-import com.chandraabdulfattah.coremvp.data.local.LocalStorageHelper
 import com.chandraabdulfattah.coremvp.data.local.LocalStorageHelperContract
 import com.chandraabdulfattah.coremvp.data.network.ApiHelperContract
 import com.chandraabdulfattah.coremvp.data.session.SessionHelperContract
 import com.chandraabdulfattah.coremvp.di.ApplicationContext
 import com.rx2androidnetworking.Rx2ANRequest
+import io.realm.RealmModel
+import io.realm.RealmResults
 import org.json.JSONObject
 import java.io.File
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,16 +21,70 @@ import javax.inject.Singleton
 @Singleton
 class DataManager @Inject
 constructor(@ApplicationContext private val mContext: Context,
-            private val mLocalStorageHelper: LocalStorageHelperContract,
+            private val localStorageHelper : LocalStorageHelperContract,
             private val mSessionHelper: SessionHelperContract,
             private val mApiHelper: ApiHelperContract)
     : DataManagerContract {
 
-    @Inject
-    lateinit var local : LocalStorageHelper
+    override fun <T : RealmModel> localGet(c: Class<T>, fieldName: String, key: String?): T? {
+        return localStorageHelper.localGet(c, fieldName, key)
+    }
 
-    override val localStorageHelper: LocalStorageHelper
-        get() = local
+    override fun <T : RealmModel> localGet(c: Class<T>, fieldName: String, key: Byte?): T? {
+        return localStorageHelper.localGet(c, fieldName, key)
+    }
+
+    override fun <T : RealmModel> localGet(c: Class<T>, fieldName: String, key: ByteArray?): T? {
+        return localStorageHelper.localGet(c, fieldName, key)
+    }
+
+    override fun <T : RealmModel> localGet(c: Class<T>, fieldName: String, key: Short?): T? {
+        return localStorageHelper.localGet(c, fieldName, key)
+    }
+
+    override fun <T : RealmModel> localGet(c: Class<T>, fieldName: String, key: Long?): T? {
+        return localStorageHelper.localGet(c, fieldName, key)
+    }
+
+    override fun <T : RealmModel> localGet(c: Class<T>, fieldName: String, key: Double?): T? {
+        return localStorageHelper.localGet(c, fieldName, key)
+    }
+
+    override fun <T : RealmModel> localGet(c: Class<T>, fieldName: String, key: Float?): T? {
+        return localStorageHelper.localGet(c, fieldName, key)
+    }
+
+    override fun <T : RealmModel> localGet(c: Class<T>, fieldName: String, key: Boolean?): T? {
+        return localStorageHelper.localGet(c, fieldName, key)
+    }
+
+    override fun <T : RealmModel> localGet(c: Class<T>, fieldName: String, key: Date?): T? {
+        return localStorageHelper.localGet(c, fieldName, key)
+    }
+
+    override fun <T : RealmModel> localGet(c: Class<T>, fieldName: String, key: Int?): T? {
+        return localStorageHelper.localGet(c, fieldName, key)
+    }
+
+    override fun <T : RealmModel> localClear(c: Class<T>) {
+        localStorageHelper.localClear(c)
+    }
+
+    override fun <T : RealmModel> localCreateFromJSON(c: Class<T>, value: JSONObject) {
+        localStorageHelper.localCreateFromJSON(c, value)
+    }
+
+    override fun localRefresh() {
+        localStorageHelper.localRefresh()
+    }
+
+    override fun <T : RealmModel> localGetAll(c: Class<T>): RealmResults<T> {
+        return localStorageHelper.localGetAll(c)
+    }
+
+    override fun localClose() {
+        localStorageHelper.localClose()
+    }
 
     override operator fun get(endpoint: String, params: Map<String, String>?, paths: Map<String, String>?,
                               headers: Map<String, String>?): Rx2ANRequest {

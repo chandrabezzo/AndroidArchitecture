@@ -3,8 +3,63 @@
 		"code": 200, 
 		"message": "Berhasil",
 		"data" : {
+			"id" : 1,
 			"nama" : "Chandra Abdul Fattah",
 			"jabatan": "Mobile Programmer"
 		}
+	},
+	"jabatan" : {
+		"code" : 200,
+		"message": "Berhasil",
+		"data" : [
+			{
+				"id" : 1,
+				"nama" : "Android Programmer"
+			},
+			{
+				"id" : 2,
+				"nama" : "iOS Programmer"
+			},
+			{
+				"id" : 3,
+				"nama" : "Java Programmer"
+			},
+			{
+				"id" : 4,
+				"nama" : "PHP Programmer"
+			},
+			{
+				"id" : 5,
+				"nama" : "FrontEnd Programmer"
+			},
+			{
+				"id" : 6,
+				"nama" : "UI / UX Designer"
+			},
+			{
+				"id" : 7,
+				"nama" : "Business Proccess Analyst"
+			},
+			{
+				"id" : 8,
+				"nama" : "Quality Assurance"
+			},
+			{
+				"id" : 9,
+				"nama" : "Quality Constraint"
+			},
+			{
+				"id" : 10,
+				"nama" : "Administration"
+			},
+			{
+				"id" : 11,
+				"nama" : "Accounting"
+			},
+			{
+				"id" : 12,
+				"nama" : "General Affairs"
+			}		
+		]
 	}
 }

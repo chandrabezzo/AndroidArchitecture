@@ -9,6 +9,8 @@ import com.chandraabdulfattah.coremvp.BuildConfig;
 public final class ApiEndPoint {
     public static final String USER = BuildConfig.BASE_URL + "user";
 
+    public static final String JABATAN = BuildConfig.BASE_URL + "jabatan";
+
     private ApiEndPoint() {
         // This class is not publicly instantiable
     }
