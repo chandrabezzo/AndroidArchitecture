@@ -16,17 +16,17 @@ abstract class ResponseOkHttp constructor(val successCode : Int)
 
     override fun onResponse(response: Response, value : JSONObject) {
         when {
-            response.code() == successCode -> onSuccess(value)
+            response.code() == successCode -> onSuccess(response, value)
             response.code() == 401 -> onUnauthorized()
-            else -> onError(value)
+            else -> onError(response, value)
         }
     }
 
     @Throws(JSONException::class)
-    abstract fun onSuccess(model: JSONObject)
+    abstract fun onSuccess(response: Response, model: JSONObject)
 
     abstract fun onUnauthorized()
 
     @Throws(JSONException::class)
-    abstract fun onError(model: JSONObject)
+    abstract fun onError(response: Response, model: JSONObject)
 }
